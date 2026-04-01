@@ -1,0 +1,5 @@
+---
+title: shell
+---
+
+# 🐚 shell

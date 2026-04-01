@@ -1,0 +1,41 @@
+# 빌드 출력 - 컨텍스트에서 제외
+public/
+public/**
+
+# 의존성
+node_modules/
+node_modules/**
+
+# Quartz 내부 코어 (수정 안 하는 파일들)
+quartz/bootstrap-cli.mjs
+quartz/bootstrap-worker.mjs
+quartz/worker.ts
+quartz/cli/**
+quartz/processors/**
+quartz/static/**
+quartz/styles/**
+quartz/i18n/**
+quartz/util/**
+
+# 문서 사이트 도움말 (Quartz 공식 docs)
+docs/**
+
+# 이미지/바이너리
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.gif
+**/*.webp
+**/*.ico
+**/*.svg
+**/*.woff
+**/*.woff2
+**/*.ttf
+**/*.eot
+
+# 기타
+LICENSE.txt
+CODE_OF_CONDUCT.md
+globals.d.ts
+index.d.ts
+Dockerfile
