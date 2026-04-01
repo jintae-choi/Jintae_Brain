@@ -1,0 +1,11 @@
+services:
+  quartz:
+    build: .
+    ports:
+      - "18080:8080"
+    volumes:
+      - ./content:/usr/src/app/content
+      - ./quartz.config.ts:/usr/src/app/quartz.config.ts
+      - ./quartz.layout.ts:/usr/src/app/quartz.layout.ts
+      # 만약 내부 엔진 소스를 수정해야 한다면 아래 주석을 해제하세요
+      # - ./quartz:/usr/src/app/quartz

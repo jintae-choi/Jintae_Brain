@@ -7,6 +7,7 @@ type MaybeHTMLElement = HTMLElement | undefined
 interface ParsedOptions {
   folderClickBehavior: "collapse" | "link"
   folderDefaultState: "collapsed" | "open"
+  initiallyOpenFolders: string[]
   useSavedState: boolean
   sortFn: (a: FileTrieNode, b: FileTrieNode) => number
   filterFn: (node: FileTrieNode) => boolean
@@ -137,10 +138,15 @@ function createFolderNode(
   // if this folder is a prefix of the current path we
   // want to open it anyways
   const simpleFolderPath = simplifySlug(folderPath)
+
+  const forceOpenByOption = opts.initiallyOpenFolders
+    .map((path) => simplifySlug(path as FullSlug))
+    .includes(simpleFolderPath)
+
   const folderIsPrefixOfCurrentSlug =
     simpleFolderPath === currentSlug.slice(0, simpleFolderPath.length)
 
-  if (!isCollapsed || folderIsPrefixOfCurrentSlug) {
+  if (!isCollapsed || folderIsPrefixOfCurrentSlug || forceOpenByOption) {
     folderOuter.classList.add("open")
   }
 
@@ -162,6 +168,7 @@ async function setupExplorer(currentSlug: FullSlug) {
     const opts: ParsedOptions = {
       folderClickBehavior: (explorer.dataset.behavior || "collapse") as "collapse" | "link",
       folderDefaultState: (explorer.dataset.collapsed || "collapsed") as "collapsed" | "open",
+      initiallyOpenFolders: JSON.parse(explorer.dataset.openFolders || "[]"),
       useSavedState: explorer.dataset.savestate === "true",
       order: dataFns.order || ["filter", "map", "sort"],
       sortFn: new Function("return " + (dataFns.sortFn || "undefined"))(),
