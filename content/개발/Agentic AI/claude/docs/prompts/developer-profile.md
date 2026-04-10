@@ -20,5 +20,5 @@
 ## 학습 이력
 | 프로젝트 | 기간 | 핵심 학습 |
 |----------|------|-----------|
-| bcmf_bs | 2026-04 | NestJS, Prisma, TanStack Query, Ant Design, Claude Code 활용 |
+| orbit_bs | 2026-04 | NestJS, Prisma, TanStack Query, Ant Design, Claude Code 활용 |
 | (다음 프로젝트) | | |
