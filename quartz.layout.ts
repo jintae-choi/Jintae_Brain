@@ -38,6 +38,7 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
+    Component.ThemeSwitcher(),
     Component.Explorer({
       folderDefaultState: "collapsed",
       initiallyOpenFolders: ["개발"],
@@ -66,6 +67,7 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
+    Component.ThemeSwitcher(),
     Component.Explorer({
       folderDefaultState: "collapsed",
       initiallyOpenFolders: ["개발"],
