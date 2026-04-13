@@ -17,9 +17,6 @@ quartz/styles/**
 quartz/i18n/**
 quartz/util/**
 
-# 문서 사이트 도움말 (Quartz 공식 docs)
-docs/**
-
 # 이미지/바이너리
 **/*.png
 **/*.jpg

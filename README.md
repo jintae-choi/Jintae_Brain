@@ -3,7 +3,8 @@
 Quartz v4 기반 개발 공부 노트 사이트.
 
 - 사이트: https://jintae-choi.github.io/Jintae_Brain
-- 운영 가이드: [document/프로젝트 운영 가이드.md](document/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%9A%B4%EC%98%81%20%EA%B0%80%EC%9D%B4%EB%93%9C.md)
+- 프로젝트 운영 가이드: [docs/프로젝트 운영 가이드.md](docs/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%9A%B4%EC%98%81%20%EA%B0%80%EC%9D%B4%EB%93%9C.md)
+- AI 자동화 운영 가이드: [docs/AI 운영 가이드.md](docs/AI%20%EC%9A%B4%EC%98%81%20%EA%B0%80%EC%9D%B4%EB%93%9C.md)
 
 ## 로컬 실행
 

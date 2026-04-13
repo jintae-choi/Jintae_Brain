@@ -22,3 +22,10 @@
 - 파일 읽기 시 필요한 줄 범위만 조회.
 - 변경점(delta) 중심 보고. 전체 재설명 금지.
 - `quartz/`, `public/` 내부는 분석 대상 제외.
+
+## 자동화 자산
+- 스킬: `/new-note`, `/polish-note`, `/add-terms` (`.claude/skills/`)
+- 서브에이전트: `note-reviewer`, `note-linker` (`.claude/agents/`)
+- 훅: `PostToolUse`에서 `.md` frontmatter·문체 자동 검증 (`.claude/hooks/validate-md.sh`)
+- 운영 가이드: `docs/AI 운영 가이드.md`
+- 레퍼런스 노트: `content/개발/git/5. git-hooks.md` (6단 흐름 예시)
