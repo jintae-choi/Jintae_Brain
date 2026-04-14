@@ -22,7 +22,6 @@ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
 ```
 - `quartz/` 전체가 볼륨 마운트되어 컴포넌트·스타일 수정이 즉시 반영됨.
 - 엔진 작업이 끝나면 기본 모드로 복귀: `docker-compose down && docker-compose up -d`
-- 자세한 개념·자동화 원리: `docs/Docker 개발 모드.md`
 
 ## 배포
 - `main` 브랜치 push 시 GitHub Actions 자동 배포.

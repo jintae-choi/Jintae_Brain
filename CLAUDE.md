@@ -31,7 +31,6 @@
 - 대화 맥락에 "디자인/테마/컴포넌트/레이아웃/스타일" 등 엔진 수정 키워드 → 자동으로 dev 모드로 전환
 - 작업 종료·커밋 단계·콘텐츠 작업 복귀 → 기본 모드로 복귀 (`down` 후 `up -d`)
 - 실수 방지: `quartz/**` 편집 시 PreToolUse 훅이 dev 모드 여부 검사
-- 상세: `docs/Docker 개발 모드.md`
 
 ## 자동화 자산
 - 스킬: `/new-note`, `/polish-note`, `/add-terms` (`.claude/skills/`)
