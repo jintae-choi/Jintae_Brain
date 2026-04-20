@@ -1,6 +1,6 @@
 ---
 name: new-note
-description: 새 학습 노트를 content/ 하위에 생성한다. 카테고리와 제목을 받아 템플릿 frontmatter(title·tags·date)를 자동 치환하고, 폴더의 기존 번호 체계를 감지해 다음 번호로 파일명을 만들고, index.md에 링크를 추가한다. 6단 흐름(개요→전체 개념→사전지식→전체 코드→라인별 해설→교훈) 골격만 만들고 내용은 채우지 않는다.
+description: 새 학습 노트를 content/ 하위에 생성한다. 카테고리와 제목을 받아 템플릿 frontmatter(title·tags·date)를 자동 치환하고, 폴더의 기존 번호 체계를 감지해 다음 번호로 파일명을 만들고, index.md에 링크를 추가한다. 표준 흐름(개요→큰그림→사전지식→비교예시→구성요소→전체 코드→라인별 해설→교훈→Best Practices) 골격만 만들고 내용은 채우지 않는다.
 ---
 
 # new-note

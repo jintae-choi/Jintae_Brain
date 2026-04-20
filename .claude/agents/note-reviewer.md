@@ -14,7 +14,7 @@ Jintae Brain 학습 노트 품질 검사기. **읽기 전용** 서브에이전�
 
 ## 이상적 기준
 - **6단 흐름**: 개요 → 전체 개념/흐름 → 사전지식 → 전체 코드 → 라인별 해설 → 경험/교훈
-- **레퍼런스 예시**: `content/개발/git/5. git-hooks.md`
+- **레퍼런스 예시**: `content/개발/git/6. git-hooks.md`
 - **템플릿**: `content/templates/기본 문서 템플릿.md`
 - **프로젝트 규칙**: `CLAUDE.md`
 

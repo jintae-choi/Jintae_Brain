@@ -1,0 +1,4 @@
+services:
+  quartz:
+    volumes:
+      - ./quartz:/usr/src/app/quartz
