@@ -73,7 +73,7 @@ Claude Code 대화
 
 실제 예시 (이 프로젝트 일부 발췌):
 
-```markdown
+```markdown title="CLAUDE.md"
 # Jintae Brain - AI 작업 지침
 
 ## 프로젝트
@@ -106,7 +106,7 @@ memory/
 
 메모리 파일 예시 (`user_profile.md`):
 
-```markdown
+```markdown title="memory/user_profile.md"
 ---
 name: 사용자 프로필
 description: 개발자, 간결체 선호, md 붙여넣기 워크플로우
@@ -147,7 +147,7 @@ allowed-tools: Bash(git *) Read Grep
 
 실제 예시 (이 프로젝트 `new-note` 스킬 일부):
 
-```markdown
+```markdown title=".claude/skills/new-note/SKILL.md"
 ---
 name: new-note
 description: 새 학습 노트를 content/ 하위에 생성한다. 카테고리와 제목을 받아 템플릿 frontmatter를 치환하고 다음 번호로 파일명을 만든다.
@@ -191,7 +191,7 @@ model: sonnet
 
 실제 예시 (이 프로젝트 `note-reviewer`):
 
-```markdown
+```markdown title=".claude/agents/note-reviewer.md"
 ---
 name: note-reviewer
 description: 학습 노트 1개를 검사해 품질 리포트를 생성한다.
@@ -236,7 +236,7 @@ PASS/FAIL 리포트. 주관적 점수 금지.
 
 settings.json 등록 형식:
 
-```json
+```json title=".claude/settings.json"
 {
   "hooks": {
     "PreToolUse": [
@@ -272,7 +272,7 @@ settings.json 등록 형식:
 
 실제 예시 (이 프로젝트 `check-engine-mount.sh` 일부):
 
-```bash
+```bash title=".claude/hooks/check-engine-mount.sh"
 #!/bin/bash
 # PreToolUse 훅: quartz/ 편집 시 Docker dev 모드 검사
 payload=$(cat)
@@ -306,7 +306,7 @@ exit 0
 
 실제 예시:
 
-```json
+```json title=".mcp.json"
 {
   "mcpServers": {
     "playwright": {

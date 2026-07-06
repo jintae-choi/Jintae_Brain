@@ -1,4 +1,9 @@
-# 새 프로젝트 킥오프 프롬프트
+---
+title: 새 프로젝트 킥오프 프롬프트
+tags:
+  - claude
+date: 2026-04-06
+---
 
 > 새 프로젝트를 시작할 때만 사용.
 > 사용법: "docs/prompts/new-project-kickoff.md 읽고 [프로젝트 설명] 시작해줘"

@@ -1,4 +1,9 @@
-# CLAUDE.md
+---
+title: CLAUDE.md
+tags:
+  - claude
+date: 2026-04-06
+---
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 

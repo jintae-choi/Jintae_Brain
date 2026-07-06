@@ -1,24 +1,42 @@
 ---
-title: Jintae Brain
+title: 🧠 Jintae Brain
+tags:
+  - index
+date: 2026-07-02
 ---
 
-# 🧠 Jintae Brain
+개발하며 마주친 문제를 원리부터 파고들어 정리하는 학습 노트다.
+모르는 것은 그냥 넘어가지 않고 기록하며, 이해한 것은 다시 읽어도 바로 복원되는 구조로 남긴다.
 
-개발 공부 기록을 정리하는 디지털 가든입니다.
+## 🧭 노트 작성 원칙
 
-## 📖 레퍼런스
+모든 노트가 같은 흐름을 따른다. 결론만 적지 않고 이해한 과정을 그대로 구조화한다.
 
-- [[개발/개발 용어 모음집|개발 용어 모음집]]
+```
+개요 → 큰 그림(다이어그램) → 사전 지식 → 비교 예시
+    → 구성요소 상세 → 전체 코드 → 라인별 해설 → 경험·교훈
+```
+
+- **비교 우선**: 새 개념은 이미 아는 도구와 대조해 설명한다. 비교가 설명보다 빠르다.
+- **경험 기반**: 실제 프로젝트에서 부딪힌 문제와 시행착오를 그대로 기록한다.
+- **AI 협업 운영**: 이 사이트의 작성·검수·배포 파이프라인을 Claude Code 훅·서브에이전트로 자동화해 운영한다.
 
 ## 📂 카테고리
 
-- [[개발/프로젝트/index|프로젝트]]
-- [[개발/Agentic AI/index|Agentic AI]]
-- [[개발/JavaScript/index|JavaScript]]
-- [[개발/php/index|php]]
-- [[개발/DB/index|DB]]
-- [[개발/Docker/index|Docker]]
-- [[개발/shell/index|shell]]
-- [[개발/Data/index|Data]]
-- [[개발/시스템/index|시스템]]
-- [[개발/git/index|git]]
+| 분야 | 다루는 내용 |
+| --- | --- |
+| [[개발/git/index\|git]] | 기본 명령어부터 bare repo 배포 파이프라인, hooks 자동화까지 |
+| [[개발/Agentic AI/index\|Agentic AI]] | Claude Code 환경 이해, 프롬프트 설계, AI 협업 워크플로우 |
+| [[개발/JavaScript/index\|JavaScript]] | 실행 컨텍스트, 스코프 체인, 클로저 등 언어 코어 |
+| [[개발/배포/index\|배포]] | GitHub Actions · GitHub Pages 배포 구조 |
+| [[개발/Docker/index\|Docker]] | 개발 모드 컨테이너 구성 |
+| [[개발/DB/index\|DB]] | dry run 패턴 등 데이터 작업 안전장치 |
+| [[개발/shell/index\|shell]] | 로컬 API 호출, 마이그레이션 스크립트 실행 |
+| [[개발/시스템/index\|시스템]] | Windows RDP·SSH 계정 구조 |
+| [[개발/웹/index\|웹]] | CDN 렌더링 차단으로 인한 화면 멈춤 분석 |
+| [[개발/프로젝트/index\|프로젝트]] | 이 사이트를 만들며 진행한 작업 기록 |
+| [[개발/기술동향/index\|기술동향]] | 다음에 공부할 기술 로드맵 |
+
+## 📖 레퍼런스
+
+- [[개발/개발 용어 모음집|개발 용어 모음집]] — 노트 전반에서 쓰는 용어 사전

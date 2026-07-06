@@ -1,4 +1,9 @@
-# AI 웹개발 필수 세팅
+---
+title: AI 웹개발 필수 세팅
+tags:
+  - Agentic AI
+date: 2026-04-01
+---
 
 > VS Code + Copilot Pro 환경에서 AI를 최대한 활용하기 위한 세팅 정리.
 
