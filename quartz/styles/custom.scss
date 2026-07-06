@@ -17,11 +17,22 @@
  * ========================================================= */
 body {
   background: var(--light);
-  line-height: 1.65;
+  line-height: 1.7;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* 코드·표 셀은 keep-all 예외 — 좁은 셀·긴 토큰의 오버플로 방지 */
+pre,
+code,
+table td,
+table th {
+  word-break: normal;
 }
 
 .page {
-  max-width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
   padding: 0 0.5rem 2rem;
 }
 
@@ -33,7 +44,7 @@ body {
 @media all and (min-width: 1200px) {
   .page > #quartz-body {
     justify-content: center;
-    grid-template-columns: minmax(240px, 300px) minmax(640px, 920px) minmax(240px, 300px);
+    grid-template-columns: minmax(240px, 300px) minmax(620px, 760px) minmax(240px, 300px);
   }
 
   .page > #quartz-body .center {
@@ -44,7 +55,7 @@ body {
 }
 
 .page-title {
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.2;
   text-transform: none;
@@ -72,6 +83,17 @@ td,
 th,
 blockquote {
   color: var(--darkgray);
+}
+
+article p,
+article li,
+article blockquote {
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+}
+
+article code {
+  letter-spacing: 0;
 }
 
 a {
@@ -111,6 +133,17 @@ input:focus-visible {
   background: var(--highlight);
 }
 
+.folder-count {
+  font-size: 0.66rem;
+  line-height: 1;
+  color: var(--gray);
+  background: var(--highlight);
+  border-radius: 999px;
+  padding: 0.14rem 0.42rem;
+  margin-left: 0.4rem;
+  flex-shrink: 0;
+}
+
 pre {
   border-radius: var(--radius-md);
 }
@@ -123,6 +156,7 @@ pre {
 :root[data-design-theme="A"] {
   --bodyFont: "IBM Plex Sans KR", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --headerFont: "IBM Plex Sans KR", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --titleFont: "IBM Plex Sans KR", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --codeFont: "JetBrains Mono", ui-monospace, monospace;
 
   --light: #ffffff;
@@ -130,9 +164,9 @@ pre {
   --gray: #6b7280;
   --darkgray: #374151;
   --dark: #0f172a;
-  --secondary: #2563eb;
-  --tertiary: #1d4ed8;
-  --highlight: rgba(37, 99, 235, 0.1);
+  --secondary: #4f46e5;
+  --tertiary: #4338ca;
+  --highlight: rgba(79, 70, 229, 0.1);
   --textHighlight: #fde68a80;
 
   --shadow-soft: none;
@@ -141,14 +175,14 @@ pre {
 }
 
 :root[data-design-theme="A"][saved-theme="dark"] {
-  --light: #0b1120;
+  --light: #0f172a;
   --lightgray: #1e293b;
   --gray: #94a3b8;
   --darkgray: #cbd5e1;
-  --dark: #f8fafc;
-  --secondary: #60a5fa;
-  --tertiary: #93c5fd;
-  --highlight: rgba(96, 165, 250, 0.18);
+  --dark: #f1f5f9;
+  --secondary: #818cf8;
+  --tertiary: #a5b4fc;
+  --highlight: rgba(129, 140, 248, 0.18);
   --textHighlight: #fde68a3a;
 }
 
@@ -168,41 +202,129 @@ pre {
     box-shadow: none;
   }
 
+  /* 로고를 일반 사이트처럼 좌상단에 — 기본 $topSpacing 공백 제거 */
   .page > #quartz-body .sidebar.left,
   .page > #quartz-body .sidebar.right {
-    padding: $topSpacing 1.5rem 2rem;
+    padding: 1.6rem 1.5rem 2rem;
     border: none;
     background: transparent;
     box-shadow: none;
   }
 
+  /* 사이드바 브랜드: JB 로고 박스 + 산세리프 (목업 패리티) */
+  .page-title {
+    font-size: 1.08rem;
+    font-weight: 700;
+    margin: 0;
+
+    a::before {
+      content: "JB";
+      display: inline-block;
+      width: 1.45rem;
+      height: 1.45rem;
+      line-height: 1.45rem;
+      text-align: center;
+      margin-right: 0.45rem;
+      background: var(--secondary);
+      color: var(--light);
+      border-radius: 6px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      vertical-align: -0.28rem;
+    }
+  }
+
+  /* 페이지 제목(frontmatter title) — 목업의 단일 대제목 크기 */
+  .article-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-top: 0.9rem;
+  }
+
+  /* 메타·경로·태그 밀도 (목업 패리티) */
+  .breadcrumb-container {
+    font-size: 0.78rem;
+    margin: 0 0 0.3rem;
+  }
+
+  .content-meta {
+    font-size: 0.78rem;
+    margin-top: 0.35rem;
+  }
+
+  .tags {
+    margin-top: 0.45rem;
+  }
+
+  /* 본문 헤딩 스케일: 제목:본문 비율을 목업과 동일하게 축소 */
   article {
     & h1 {
-      font-size: 2rem;
-      font-weight: 800;
-      margin-top: 2.5rem;
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-top: 2.1rem;
       padding-bottom: 0.3rem;
       border-bottom: 1px solid var(--lightgray);
     }
     & h2 {
-      font-size: 1.45rem;
+      font-size: 1.18rem;
       font-weight: 700;
-      margin-top: 2.2rem;
+      margin-top: 1.9rem;
     }
     & h3 {
-      font-size: 1.15rem;
+      font-size: 1.03rem;
       font-weight: 700;
-      margin-top: 1.7rem;
+      margin-top: 1.5rem;
     }
   }
 
-  pre {
-    border: 1px solid var(--lightgray);
-    background: color-mix(in srgb, var(--light) 96%, var(--dark) 4%);
+  /* 코드블록: 라이트/다크 모두 다크 슬레이트 (Stripe 문서 방식) */
+  article pre {
+    border: 1px solid #1e293b;
+    background: #0f172a;
+    color: #e2e8f0;
   }
 
-  code {
+  /* 언어 없는 블록(화살표 흐름도)은 밝은 카드로 구분 */
+  article pre:not(:has(> code[data-language])) {
+    border: 1px solid var(--lightgray);
+    background: color-mix(in srgb, var(--light) 96%, var(--dark) 4%);
+    color: var(--darkgray);
+    text-align: center;
+  }
+
+  /* 파일명 탭 (```bash title="..." 문법) — 신호등 3개 */
+  figure[data-rehype-pretty-code-figure] > [data-rehype-pretty-code-title] {
+    display: flex;
+    align-items: center;
+    height: 1.9rem;
+    font-family: var(--codeFont);
+    font-size: 0.72rem;
+    color: #94a3b8;
+    padding: 0 0.9rem 0 4rem;
+    background:
+      radial-gradient(circle at 1.1rem 50%, #f87171 0.26rem, transparent 0.32rem),
+      radial-gradient(circle at 1.95rem 50%, #fbbf24 0.26rem, transparent 0.32rem),
+      radial-gradient(circle at 2.8rem 50%, #34d399 0.26rem, transparent 0.32rem),
+      #1e293b;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+  }
+
+  figure[data-rehype-pretty-code-figure] > [data-rehype-pretty-code-title] + pre {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  /* 하이라이트 라인 (```bash {3} 문법) */
+  article pre > code > [data-line][data-highlighted-line] {
+    background: rgba(79, 70, 229, 0.28);
+    box-shadow: inset 3px 0 0 #818cf8;
+  }
+
+  article :not(pre) > code {
     background: color-mix(in srgb, var(--lightgray) 70%, transparent);
+    color: var(--secondary);
   }
 
   blockquote {
@@ -210,6 +332,60 @@ pre {
     background: var(--highlight);
     padding: 0.6rem 1rem;
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  /* 태그 → 인디고 칩 */
+  .tags .tag-link {
+    font-size: 0.72rem;
+    background: var(--highlight);
+    color: var(--tertiary);
+    border-radius: 999px;
+    padding: 0.12rem 0.6rem;
+  }
+
+  /* 콜아웃: 기본은 테마 인디고, 주의 계열만 앰버 */
+  .callout {
+    --color: var(--secondary);
+    --border: color-mix(in srgb, var(--secondary) 35%, transparent);
+    --bg: color-mix(in srgb, var(--secondary) 9%, transparent);
+    border-radius: var(--radius-md);
+  }
+
+  .callout[data-callout="warning"],
+  .callout[data-callout="caution"],
+  .callout[data-callout="danger"] {
+    --color: #d97706;
+    --border: #d9770655;
+    --bg: #d977061a;
+  }
+
+  /* 표: 세로줄 없이, 인디고 틴트 헤더 */
+  article table {
+    border-collapse: collapse;
+  }
+
+  article th {
+    background: var(--highlight);
+    color: var(--tertiary);
+    border: none;
+    border-bottom: 1px solid var(--lightgray);
+    padding: 0.45rem 0.8rem;
+  }
+
+  article td {
+    border: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--lightgray) 55%, transparent);
+    padding: 0.45rem 0.8rem;
+  }
+}
+
+:root[data-design-theme="A"][saved-theme="dark"] {
+  .callout[data-callout="warning"],
+  .callout[data-callout="caution"],
+  .callout[data-callout="danger"] {
+    --color: #fbbf24;
+    --border: #fbbf2455;
+    --bg: #fbbf2418;
   }
 }
 
@@ -302,7 +478,7 @@ pre {
       margin-top: 1.9rem;
     }
     & p {
-      font-size: 1.02rem;
+      font-size: 1.06rem;
     }
     & p + p {
       text-indent: 1.2em;
@@ -319,12 +495,21 @@ pre {
     border-radius: 0 var(--radius-md) var(--radius-md) 0;
   }
 
-  pre {
-    border: 1px solid var(--lightgray);
-    background: color-mix(in srgb, var(--light) 92%, var(--dark) 8%);
+  /* 코드 토큰이 다크 전용이라 종이 위에도 잉크색 블록 */
+  article pre {
+    border: 1px solid #45392a;
+    background: #2b241a;
+    color: #f0e6d2;
   }
 
-  code {
+  article pre:not(:has(> code[data-language])) {
+    border: 1px solid var(--lightgray);
+    background: color-mix(in srgb, var(--light) 94%, var(--dark) 6%);
+    color: var(--darkgray);
+    text-align: center;
+  }
+
+  article :not(pre) > code {
     background: color-mix(in srgb, var(--lightgray) 60%, transparent);
     font-style: normal;
   }
@@ -337,6 +522,7 @@ pre {
 :root[data-design-theme="C"] {
   --bodyFont: "IBM Plex Sans KR", -apple-system, system-ui, sans-serif;
   --headerFont: "JetBrains Mono", "IBM Plex Sans KR", ui-monospace, monospace;
+  --titleFont: "JetBrains Mono", "IBM Plex Sans KR", ui-monospace, monospace;
   --codeFont: "JetBrains Mono", ui-monospace, "Consolas", monospace;
 
   --light: #f7f8fa;
@@ -360,7 +546,7 @@ pre {
   --lightgray: #2d2d30;
   --gray: #858585;
   --darkgray: #d4d4d4;
-  --dark: #ffffff;
+  --dark: #e8e8e8;
   --secondary: #4ec9b0;
   --tertiary: #9cdcfe;
   --highlight: rgba(78, 201, 176, 0.16);
@@ -369,7 +555,7 @@ pre {
 
 :root[data-design-theme="C"] {
   body {
-    line-height: 1.6;
+    line-height: 1.65;
   }
 
   .page > #quartz-body .page-header {
@@ -434,13 +620,14 @@ pre {
     }
   }
 
-  pre {
-    border: 1px solid var(--lightgray);
-    background: color-mix(in srgb, var(--light) 94%, var(--dark) 6%);
+  article pre {
+    border: 1px solid #3c3c3c;
+    background: #1a1a1a;
+    color: #d4d4d4;
     border-radius: var(--radius-md);
   }
 
-  code {
+  article :not(pre) > code {
     background: color-mix(in srgb, var(--lightgray) 80%, transparent);
     color: var(--secondary);
     font-weight: 500;
@@ -456,6 +643,206 @@ pre {
   .search > .search-button,
   .theme-switcher {
     border-radius: var(--radius-md);
+  }
+}
+
+/* =========================================================
+ * 디자인 C — 터미널 스킨 상세 (시안 C)
+ * 타이틀바·프롬프트 경로·주석형 메타·코드 탭·라인넘버·상태바
+ * ========================================================= */
+:root[data-design-theme="C"] {
+  --comment: #6e7781;
+}
+
+:root[data-design-theme="C"][saved-theme="dark"] {
+  --comment: #6a9955;
+}
+
+:root[data-design-theme="C"] {
+  /* 본문 카드 상단: 터미널 타이틀바 (신호등 3개) */
+  .page > #quartz-body .center > article::before {
+    content: "jintae@brain";
+    display: flex;
+    align-items: center;
+    height: 2.1rem;
+    margin: -1.6rem -1.6rem 1.5rem;
+    padding-left: 4.4rem;
+    font-family: var(--codeFont);
+    font-size: 0.72rem;
+    color: var(--gray);
+    background:
+      radial-gradient(circle at 1.2rem 50%, #f87171 0.27rem, transparent 0.33rem),
+      radial-gradient(circle at 2.15rem 50%, #fbbf24 0.27rem, transparent 0.33rem),
+      radial-gradient(circle at 3.1rem 50%, #34d399 0.27rem, transparent 0.33rem),
+      var(--lightgray);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  /* Breadcrumbs → 터미널 프롬프트 경로 */
+  .breadcrumb-container {
+    font-family: var(--codeFont);
+    font-size: 0.78rem;
+
+    &::before {
+      content: "$ cd ";
+      color: var(--secondary);
+    }
+
+    .breadcrumb-element p {
+      color: var(--secondary);
+    }
+  }
+
+  /* ContentMeta → 주석 스타일 */
+  .content-meta {
+    font-family: var(--codeFont);
+    font-size: 0.75rem;
+    color: var(--comment);
+
+    &::before {
+      content: "// ";
+    }
+  }
+
+  /* 태그 → 모노 칩 */
+  .tags .tag-link {
+    font-family: var(--codeFont);
+    font-size: 0.72rem;
+    background: var(--highlight);
+    border-radius: var(--radius-sm);
+    padding: 0.1rem 0.5rem;
+  }
+
+  /* 코드블록: 파일명 탭 (```bash title="..." 문법) */
+  figure[data-rehype-pretty-code-figure] {
+    margin: 1.4rem 0;
+
+    > [data-rehype-pretty-code-title] {
+      width: fit-content;
+      font-family: var(--codeFont);
+      font-size: 0.72rem;
+      color: var(--darkgray);
+      background: var(--lightgray);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      padding: 0.32rem 0.9rem;
+    }
+
+    > [data-rehype-pretty-code-title] + pre {
+      margin-top: 0;
+      border-top-left-radius: 0;
+    }
+  }
+
+  /* 코드블록: 라인 넘버 + 하이라이트 라인 */
+  article pre > code {
+    counter-reset: line;
+
+    > [data-line]::before {
+      counter-increment: line;
+      content: counter(line);
+      display: inline-block;
+      width: 1.4rem;
+      margin-right: 1rem;
+      text-align: right;
+      color: var(--gray);
+      opacity: 0.55;
+    }
+
+    > [data-line][data-highlighted-line] {
+      background: var(--highlight);
+      box-shadow: inset 3px 0 0 var(--secondary);
+    }
+  }
+
+  /* 콜아웃 → 터미널 팔레트 (라벨은 대문자 모노) */
+  .callout {
+    border-radius: var(--radius-sm);
+  }
+
+  .callout[data-callout="note"],
+  .callout[data-callout="info"] {
+    --color: #569cd6;
+    --border: #569cd644;
+    --bg: #569cd612;
+  }
+
+  .callout[data-callout="tip"],
+  .callout[data-callout="example"] {
+    --color: #4ec9b0;
+    --border: #4ec9b044;
+    --bg: #4ec9b012;
+  }
+
+  .callout[data-callout="warning"],
+  .callout[data-callout="caution"] {
+    --color: #d7ba7d;
+    --border: #d7ba7d44;
+    --bg: #d7ba7d12;
+  }
+
+  .callout-title-inner {
+    font-family: var(--codeFont);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* 표 → GitHub 스타일 */
+  article table {
+    border-collapse: collapse;
+
+    th {
+      background: color-mix(in srgb, var(--lightgray) 55%, var(--light));
+      font-size: 0.85rem;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--lightgray);
+      padding: 0.45rem 0.8rem;
+    }
+  }
+
+  /* Footer → 에디터 상태바 */
+  footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    font-family: var(--codeFont);
+    font-size: 0.72rem;
+    background: var(--secondary);
+    color: var(--light);
+    border-radius: var(--radius-sm);
+    padding: 0.28rem 0.9rem;
+    margin: 2rem 0 1rem;
+
+    &::before {
+      content: "⎇ main";
+    }
+
+    p {
+      margin: 0;
+      color: inherit;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 1.2rem;
+      list-style: none;
+    }
+
+    a {
+      color: inherit;
+    }
+  }
+}
+
+@media all and (max-width: 800px) {
+  :root[data-design-theme="C"] .page > #quartz-body .center > article::before {
+    margin: -1rem -1rem 1rem;
   }
 }
 

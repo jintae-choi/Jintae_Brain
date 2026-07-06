@@ -96,6 +96,13 @@ function createFileNode(currentSlug: FullSlug, node: FileTrieNode): HTMLLIElemen
   return li
 }
 
+function countFiles(node: FileTrieNode): number {
+  return node.children.reduce(
+    (total, child) => total + (child.isFolder ? countFiles(child) : 1),
+    0,
+  )
+}
+
 function createFolderNode(
   currentSlug: FullSlug,
   node: FileTrieNode,
@@ -128,6 +135,15 @@ function createFolderNode(
   } else {
     const span = titleContainer.querySelector(".folder-title") as HTMLElement
     span.textContent = node.displayName
+  }
+
+  // 폴더별 문서 개수 뱃지
+  const fileCount = countFiles(node)
+  if (fileCount > 0) {
+    const countBadge = document.createElement("span")
+    countBadge.className = "folder-count"
+    countBadge.textContent = fileCount.toString()
+    titleContainer.appendChild(countBadge)
   }
 
   // if the saved state is collapsed or the default state is collapsed

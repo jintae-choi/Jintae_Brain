@@ -5,11 +5,20 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [],
+  afterBody: [
+    Component.ConditionalRender({
+      component: Component.RecentNotes({
+        title: "📌 최근 학습 기록",
+        limit: 5,
+        showTags: false,
+        filter: (f) => !f.slug?.endsWith("index"),
+      }),
+      condition: (page) => page.fileData.slug === "index",
+    }),
+  ],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/jackyzha0/quartz",
-      "Discord Community": "https://discord.gg/cRFFHYye7t",
+      GitHub: "https://github.com/jintae-choi",
     },
   }),
 }
@@ -22,8 +31,14 @@ export const defaultContentPageLayout: PageLayout = {
       condition: (page) => page.fileData.slug !== "index",
     }),
     Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
+    Component.ConditionalRender({
+      component: Component.ContentMeta(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
+    Component.ConditionalRender({
+      component: Component.TagList(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
   ],
   left: [
     Component.PageTitle(),
@@ -40,7 +55,7 @@ export const defaultContentPageLayout: PageLayout = {
     }),
     Component.ThemeSwitcher(),
     Component.Explorer({
-      folderDefaultState: "collapsed",
+      folderDefaultState: "open",
       initiallyOpenFolders: ["개발"],
       useSavedState: false,
     }),
@@ -69,7 +84,7 @@ export const defaultListPageLayout: PageLayout = {
     }),
     Component.ThemeSwitcher(),
     Component.Explorer({
-      folderDefaultState: "collapsed",
+      folderDefaultState: "open",
       initiallyOpenFolders: ["개발"],
       useSavedState: false,
     }),
