@@ -243,7 +243,7 @@ echo '{"tool_name":"Write","tool_input":{"file_path":"content/개발/git/0. git 
 
 ## 7. 설정 관리 원칙
 
-- **중복 금지**: `CLAUDE.md`가 단일 소스. `AGENTS.md`는 포인터만.
+- **중복 금지**: `AGENTS.md`가 단일 소스(도구 중립 원본). `CLAUDE.md`는 `@AGENTS.md` 임포트 + Claude Code 전용 규칙(토큰 절약·자동화 자산)만.
 - **`.claude/` 커밋**: 스킬·에이전트·훅은 git에 포함. 팀/미래의 본인이 동일 환경 사용.
 - **템플릿 고정**: [기본 문서 템플릿.md](../content/templates/기본%20문서%20템플릿.md)가 표준 흐름의 단일 원본. 변경 시 이 문서도 갱신.
 - **레퍼런스 노트**: [6. git-hooks.md](../content/개발/git/6.%20git-hooks.md)를 "이상적 구조"의 살아있는 예시로 유지.
