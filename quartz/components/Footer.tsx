@@ -17,6 +17,10 @@ export default ((opts?: Options) => {
           {i18n(cfg.locale).components.footer.createdWith}{" "}
           <a href="https://quartz.jzhao.xyz/">Quartz v{version}</a> © {year}
         </p>
+        <p>
+          노트 콘텐츠 © {year} Jintae Choi ·{" "}
+          <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko">CC BY-NC-ND 4.0</a>
+        </p>
         <ul>
           {Object.entries(links).map(([text, link]) => (
             <li>

@@ -1,6 +1,9 @@
+이 라이선스는 Quartz 엔진 코드(quartz/, quartz.config.ts, quartz.layout.ts 등)에만 적용됩니다.
+학습 노트(content/)는 별도 라이선스를 따릅니다 — content/LICENSE.md 참고.
+
 MIT License
 
-Copyright (c) 2026 Jintae Choi
+Copyright (c) 2021 jackyzha0
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

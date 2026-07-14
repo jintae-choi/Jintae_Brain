@@ -6,6 +6,10 @@ Quartz v4 기반 개발 공부 노트 사이트.
 - 프로젝트 운영 가이드: [docs/프로젝트 운영 가이드.md](docs/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%9A%B4%EC%98%81%20%EA%B0%80%EC%9D%B4%EB%93%9C.md)
 - AI 자동화 운영 가이드: [docs/AI 운영 가이드.md](docs/AI%20%EC%9A%B4%EC%98%81%20%EA%B0%80%EC%9D%B4%EB%93%9C.md)
 
+## 라이선스
+- 엔진 코드(`quartz/` 등): MIT — [LICENSE.txt](LICENSE.txt)
+- 학습 노트(`content/`): CC BY-NC-ND 4.0 (저작자표시-비영리-변경금지) — [content/LICENSE.md](content/LICENSE.md)
+
 ## 로컬 실행
 
 ### Docker (유일한 지원 방식)
