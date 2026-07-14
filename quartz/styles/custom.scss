@@ -2,14 +2,22 @@
 @use "./variables.scss" as *;
 
 /* =========================================================
- * 공통 토큰 (모든 디자인이 사용)
+ * 디자인 = Developer (VS Code 다크톤 + 모노 강조 + 샤프 코너)
+ * 색 팔레트·폰트는 quartz.config.ts(theme.colors / typography)에서 주입.
+ * 여기서는 팔레트로 표현 못 하는 나머지 토큰·레이아웃·스킨만 담당한다.
  * ========================================================= */
 :root {
-  --radius-lg: 14px;
-  --radius-md: 10px;
-  --radius-sm: 6px;
-  --shadow-soft: 0 6px 18px rgba(15, 23, 42, 0.06);
+  --radius-lg: 4px;
+  --radius-md: 3px;
+  --radius-sm: 2px;
+  --shadow-soft: none;
   --focus-ring: 0 0 0 3px color-mix(in srgb, var(--secondary) 28%, transparent);
+  --titleFont: "JetBrains Mono", "IBM Plex Sans KR", ui-monospace, monospace;
+  --comment: #6e7781;
+}
+
+:root[saved-theme="dark"] {
+  --comment: #6a9955;
 }
 
 /* =========================================================
@@ -17,7 +25,7 @@
  * ========================================================= */
 body {
   background: var(--light);
-  line-height: 1.7;
+  line-height: 1.65;
   word-break: keep-all;
   overflow-wrap: break-word;
 }
@@ -68,6 +76,16 @@ table th {
   text-shadow: none;
 }
 
+/* 페이지 헤더(브레드크럼·제목·메타·태그·컨트롤 버튼)를 스크롤해도 상단 고정 */
+.page > #quartz-body .center > .page-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--light);
+  padding-top: 1rem;
+  padding-bottom: 0.25rem;
+}
+
 h1,
 h2,
 h3,
@@ -112,7 +130,7 @@ input:focus-visible {
 
 .search > .search-button {
   height: 2.15rem;
-  border-radius: 999px;
+  border-radius: var(--radius-md);
   border: 1px solid var(--lightgray);
   background: var(--light);
 }
@@ -151,698 +169,277 @@ pre {
 }
 
 /* =========================================================
- * 디자인 A — Technical Docs (기본)
- * 깔끔/플랫/뉴트럴 그레이 + 딥블루
- * Stripe·Vercel·Linear docs 톤
+ * 본문 카드 · 사이드바 레이아웃
  * ========================================================= */
-:root[data-design-theme="A"] {
-  --bodyFont: "IBM Plex Sans KR", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --headerFont: "IBM Plex Sans KR", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --titleFont: "IBM Plex Sans KR", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --codeFont: "JetBrains Mono", ui-monospace, monospace;
-
-  --light: #ffffff;
-  --lightgray: #e6e8eb;
-  --gray: #6b7280;
-  --darkgray: #374151;
-  --dark: #0f172a;
-  --secondary: #4f46e5;
-  --tertiary: #4338ca;
-  --highlight: rgba(79, 70, 229, 0.1);
-  --textHighlight: #fde68a80;
-
-  --shadow-soft: none;
-  --radius-lg: 10px;
-  --radius-md: 8px;
+.page > #quartz-body .page-header {
+  margin-top: 1.4rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  border-radius: var(--radius-lg);
 }
 
-:root[data-design-theme="A"][saved-theme="dark"] {
-  --light: #0f172a;
-  --lightgray: #1e293b;
-  --gray: #94a3b8;
-  --darkgray: #cbd5e1;
-  --dark: #f1f5f9;
-  --secondary: #818cf8;
-  --tertiary: #a5b4fc;
-  --highlight: rgba(129, 140, 248, 0.18);
-  --textHighlight: #fde68a3a;
+.page > #quartz-body .center > article {
+  padding: 1.6rem 1.6rem 3rem;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  border-radius: var(--radius-lg);
+  box-shadow: none;
 }
 
-:root[data-design-theme="A"] {
-  .page > #quartz-body .page-header {
-    margin-top: 1.4rem;
-    padding: 0.4rem 0.2rem 1rem;
-    border: none;
-    background: transparent;
-    border-bottom: 1px solid var(--lightgray);
-  }
+.page > #quartz-body .sidebar.left,
+.page > #quartz-body .sidebar.right {
+  padding: $topSpacing 1.4rem 2rem;
+  border: none;
+  background: transparent;
+}
 
-  .page > #quartz-body .center > article {
-    padding: 1.6rem 0.4rem 3rem;
-    border: none;
-    background: transparent;
-    box-shadow: none;
-  }
-
-  /* 로고를 일반 사이트처럼 좌상단에 — 기본 $topSpacing 공백 제거 */
-  .page > #quartz-body .sidebar.left,
-  .page > #quartz-body .sidebar.right {
-    padding: 1.6rem 1.5rem 2rem;
-    border: none;
-    background: transparent;
-    box-shadow: none;
-  }
-
-  /* 사이드바 브랜드: JB 로고 박스 + 산세리프 (목업 패리티) */
-  .page-title {
-    font-size: 1.08rem;
+/* 헤딩 앞에 마크다운 기호(#, ##, ###) 프리픽스 */
+article {
+  & h1 {
+    font-size: 1.85rem;
     font-weight: 700;
-    margin: 0;
-
-    a::before {
-      content: "JB";
-      display: inline-block;
-      width: 1.45rem;
-      height: 1.45rem;
-      line-height: 1.45rem;
-      text-align: center;
-      margin-right: 0.45rem;
-      background: var(--secondary);
-      color: var(--light);
-      border-radius: 6px;
-      font-size: 0.68rem;
-      font-weight: 700;
-      vertical-align: -0.28rem;
-    }
-  }
-
-  /* 페이지 제목(frontmatter title) — 목업의 단일 대제목 크기 */
-  .article-title {
-    font-size: 1.6rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-top: 0.9rem;
-  }
-
-  /* 메타·경로·태그 밀도 (목업 패리티) */
-  .breadcrumb-container {
-    font-size: 0.78rem;
-    margin: 0 0 0.3rem;
-  }
-
-  .content-meta {
-    font-size: 0.78rem;
-    margin-top: 0.35rem;
-  }
-
-  .tags {
-    margin-top: 0.45rem;
-  }
-
-  /* 본문 헤딩 스케일: 제목:본문 비율을 목업과 동일하게 축소 */
-  article {
-    & h1 {
-      font-size: 1.45rem;
-      font-weight: 700;
-      margin-top: 2.1rem;
-      padding-bottom: 0.3rem;
-      border-bottom: 1px solid var(--lightgray);
-    }
-    & h2 {
-      font-size: 1.18rem;
-      font-weight: 700;
-      margin-top: 1.9rem;
-    }
-    & h3 {
-      font-size: 1.03rem;
-      font-weight: 700;
-      margin-top: 1.5rem;
-    }
-  }
-
-  /* 코드블록: 라이트/다크 모두 다크 슬레이트 (Stripe 문서 방식) */
-  article pre {
-    border: 1px solid #1e293b;
-    background: #0f172a;
-    color: #e2e8f0;
-  }
-
-  /* 언어 없는 블록(화살표 흐름도)은 밝은 카드로 구분 */
-  article pre:not(:has(> code[data-language])) {
-    border: 1px solid var(--lightgray);
-    background: color-mix(in srgb, var(--light) 96%, var(--dark) 4%);
-    color: var(--darkgray);
-    text-align: center;
-  }
-
-  /* 파일명 탭 (```bash title="..." 문법) — 신호등 3개 */
-  figure[data-rehype-pretty-code-figure] > [data-rehype-pretty-code-title] {
-    display: flex;
-    align-items: center;
-    height: 1.9rem;
-    font-family: var(--codeFont);
-    font-size: 0.72rem;
-    color: #94a3b8;
-    padding: 0 0.9rem 0 4rem;
-    background:
-      radial-gradient(circle at 1.1rem 50%, #f87171 0.26rem, transparent 0.32rem),
-      radial-gradient(circle at 1.95rem 50%, #fbbf24 0.26rem, transparent 0.32rem),
-      radial-gradient(circle at 2.8rem 50%, #34d399 0.26rem, transparent 0.32rem), #1e293b;
-    border-radius: var(--radius-md) var(--radius-md) 0 0;
-  }
-
-  figure[data-rehype-pretty-code-figure] > [data-rehype-pretty-code-title] + pre {
-    margin-top: 0;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-
-  /* 하이라이트 라인 (```bash {3} 문법) */
-  article pre > code > [data-line][data-highlighted-line] {
-    background: rgba(79, 70, 229, 0.28);
-    box-shadow: inset 3px 0 0 #818cf8;
-  }
-
-  article :not(pre) > code {
-    background: color-mix(in srgb, var(--lightgray) 70%, transparent);
-    color: var(--secondary);
-  }
-
-  blockquote {
-    border-left: 3px solid var(--secondary);
-    background: var(--highlight);
-    padding: 0.6rem 1rem;
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  }
-
-  /* 태그 → 인디고 칩 */
-  .tags .tag-link {
-    font-size: 0.72rem;
-    background: var(--highlight);
-    color: var(--tertiary);
-    border-radius: 999px;
-    padding: 0.12rem 0.6rem;
-  }
-
-  /* 콜아웃: 기본은 테마 인디고, 주의 계열만 앰버 */
-  .callout {
-    --color: var(--secondary);
-    --border: color-mix(in srgb, var(--secondary) 35%, transparent);
-    --bg: color-mix(in srgb, var(--secondary) 9%, transparent);
-    border-radius: var(--radius-md);
-  }
-
-  .callout[data-callout="warning"],
-  .callout[data-callout="caution"],
-  .callout[data-callout="danger"] {
-    --color: #d97706;
-    --border: #d9770655;
-    --bg: #d977061a;
-  }
-
-  /* 표: 세로줄 없이, 인디고 틴트 헤더 */
-  article table {
-    border-collapse: collapse;
-  }
-
-  article th {
-    background: var(--highlight);
-    color: var(--tertiary);
-    border: none;
+    margin-top: 2.2rem;
+    padding-bottom: 0.4rem;
     border-bottom: 1px solid var(--lightgray);
-    padding: 0.45rem 0.8rem;
+    &::before {
+      content: "# ";
+      color: var(--secondary);
+      font-family: var(--codeFont);
+      font-weight: 500;
+    }
   }
-
-  article td {
-    border: none;
-    border-bottom: 1px solid color-mix(in srgb, var(--lightgray) 55%, transparent);
-    padding: 0.45rem 0.8rem;
+  & h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    &::before {
+      content: "## ";
+      color: var(--secondary);
+      font-family: var(--codeFont);
+      font-weight: 500;
+      opacity: 0.7;
+    }
+  }
+  & h3 {
+    font-size: 1.12rem;
+    font-weight: 600;
+    &::before {
+      content: "### ";
+      color: var(--secondary);
+      font-family: var(--codeFont);
+      font-weight: 500;
+      opacity: 0.6;
+    }
   }
 }
 
-:root[data-design-theme="A"][saved-theme="dark"] {
-  .callout[data-callout="warning"],
-  .callout[data-callout="caution"],
-  .callout[data-callout="danger"] {
-    --color: #fbbf24;
-    --border: #fbbf2455;
-    --bg: #fbbf2418;
-  }
+/* 코드블록: 라이트/다크 공통으로 항상 다크(개발자 톤).
+   base.scss의 `code { color: var(--dark) }`가 라이트 모드에서 어두운 글자를
+   만들어 어두운 코드 배경과 겹쳐 안 보이던 것을, code 글자색을 pre에서
+   상속(밝은 #d4d4d4)받게 해 라이트·다크 모두 보이도록 고정한다. */
+article pre {
+  border: 1px solid #3c3c3c;
+  background: #1a1a1a;
+  color: #d4d4d4;
+  border-radius: var(--radius-md);
 }
 
-/* =========================================================
- * 디자인 B — Academic / Notion 하이브리드
- * 따뜻한 오프화이트 + 시에나, 세리프 본문
- * ========================================================= */
-:root[data-design-theme="B"] {
-  --bodyFont: "Noto Serif KR", Georgia, "Times New Roman", serif;
-  --headerFont: "Noto Serif KR", "IBM Plex Sans KR", Georgia, serif;
-  --codeFont: "JetBrains Mono", ui-monospace, monospace;
-
-  --light: #fbfaf7;
-  --lightgray: #e8e2d4;
-  --gray: #8a7e6b;
-  --darkgray: #3d3528;
-  --dark: #1c1a14;
-  --secondary: #a0522d;
-  --tertiary: #7c3f1f;
-  --highlight: rgba(160, 82, 45, 0.1);
-  --textHighlight: #f5deb380;
-
-  --shadow-soft: 0 8px 26px rgba(60, 40, 20, 0.07);
-  --radius-lg: 6px;
-  --radius-md: 4px;
+article :not(pre) > code {
+  background: color-mix(in srgb, var(--lightgray) 80%, transparent);
+  color: var(--secondary);
+  font-weight: 500;
 }
 
-:root[data-design-theme="B"][saved-theme="dark"] {
-  --light: #1a1814;
-  --lightgray: #2e2920;
-  --gray: #998c75;
-  --darkgray: #d6cdb8;
-  --dark: #f4ecd8;
-  --secondary: #d18a4f;
-  --tertiary: #e3a76c;
-  --highlight: rgba(209, 138, 79, 0.16);
-  --textHighlight: #d7ba7d40;
-  --shadow-soft: 0 8px 22px rgba(0, 0, 0, 0.4);
-}
-
-:root[data-design-theme="B"] {
-  body {
-    line-height: 1.78;
-  }
-
-  .page > #quartz-body .page-header {
-    margin-top: 1.6rem;
-    padding: 1.4rem 1.6rem 1rem;
-    border: none;
-    background: transparent;
-  }
-
-  .page > #quartz-body .center > article {
-    padding: 2.4rem 2.4rem 4rem;
-    border: 1px solid var(--lightgray);
-    background: var(--light);
-    box-shadow: var(--shadow-soft);
-    border-radius: var(--radius-lg);
-  }
-
-  .page > #quartz-body .sidebar.left,
-  .page > #quartz-body .sidebar.right {
-    padding: $topSpacing 1.6rem 2rem;
-    border: none;
-    background: transparent;
-  }
-
-  article {
-    & h1 {
-      font-family: var(--headerFont);
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-top: 0.5rem;
-      margin-bottom: 1.4rem;
-      padding-bottom: 0.6rem;
-      border-bottom: 2px solid var(--darkgray);
-      color: var(--dark);
-    }
-    & h2 {
-      font-family: var(--headerFont);
-      font-size: 1.55rem;
-      font-weight: 600;
-      margin-top: 2.4rem;
-      color: var(--dark);
-    }
-    & h3 {
-      font-family: var(--headerFont);
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-top: 1.9rem;
-    }
-    & p {
-      font-size: 1.06rem;
-    }
-    & p + p {
-      text-indent: 1.2em;
-      margin-top: -0.3rem;
-    }
-  }
-
-  blockquote {
-    border-left: 4px solid var(--secondary);
-    background: var(--highlight);
-    padding: 0.9rem 1.3rem;
-    margin: 1.4rem 0;
-    font-style: italic;
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  }
-
-  /* 코드 토큰이 다크 전용이라 종이 위에도 잉크색 블록 */
-  article pre {
-    border: 1px solid #45392a;
-    background: #2b241a;
-    color: #f0e6d2;
-  }
-
-  article pre:not(:has(> code[data-language])) {
-    border: 1px solid var(--lightgray);
-    background: color-mix(in srgb, var(--light) 94%, var(--dark) 6%);
-    color: var(--darkgray);
-    text-align: center;
-  }
-
-  article :not(pre) > code {
-    background: color-mix(in srgb, var(--lightgray) 60%, transparent);
-    font-style: normal;
-  }
+blockquote {
+  border-left: 3px solid var(--secondary);
+  background: var(--highlight);
+  padding: 0.6rem 1rem;
+  border-radius: 0;
 }
 
 /* =========================================================
- * 디자인 C — Developer Dark-first
- * VS Code 다크톤 + 모노 강조 + 샤프 코너
- * ========================================================= */
-:root[data-design-theme="C"] {
-  --bodyFont: "IBM Plex Sans KR", -apple-system, system-ui, sans-serif;
-  --headerFont: "JetBrains Mono", "IBM Plex Sans KR", ui-monospace, monospace;
-  --titleFont: "JetBrains Mono", "IBM Plex Sans KR", ui-monospace, monospace;
-  --codeFont: "JetBrains Mono", ui-monospace, "Consolas", monospace;
-
-  --light: #f7f8fa;
-  --lightgray: #e1e4e8;
-  --gray: #6e7681;
-  --darkgray: #24292f;
-  --dark: #0d1117;
-  --secondary: #0969da;
-  --tertiary: #0550ae;
-  --highlight: rgba(9, 105, 218, 0.12);
-  --textHighlight: #fff8c580;
-
-  --shadow-soft: none;
-  --radius-lg: 4px;
-  --radius-md: 3px;
-  --radius-sm: 2px;
-}
-
-:root[data-design-theme="C"][saved-theme="dark"] {
-  --light: #1e1e1e;
-  --lightgray: #2d2d30;
-  --gray: #858585;
-  --darkgray: #d4d4d4;
-  --dark: #e8e8e8;
-  --secondary: #4ec9b0;
-  --tertiary: #9cdcfe;
-  --highlight: rgba(78, 201, 176, 0.16);
-  --textHighlight: #d7ba7d4f;
-}
-
-:root[data-design-theme="C"] {
-  body {
-    line-height: 1.65;
-  }
-
-  .page > #quartz-body .page-header {
-    margin-top: 1.4rem;
-    padding: 1rem 1.2rem;
-    border: 1px solid var(--lightgray);
-    background: var(--light);
-    border-radius: var(--radius-lg);
-  }
-
-  .page > #quartz-body .center > article {
-    padding: 1.6rem 1.6rem 3rem;
-    border: 1px solid var(--lightgray);
-    background: var(--light);
-    border-radius: var(--radius-lg);
-    box-shadow: none;
-  }
-
-  .page > #quartz-body .sidebar.left,
-  .page > #quartz-body .sidebar.right {
-    padding: $topSpacing 1.4rem 2rem;
-    border: none;
-    background: transparent;
-  }
-
-  article {
-    & h1 {
-      font-size: 1.85rem;
-      font-weight: 700;
-      margin-top: 2.2rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 1px solid var(--lightgray);
-      &::before {
-        content: "# ";
-        color: var(--secondary);
-        font-family: var(--codeFont);
-        font-weight: 500;
-      }
-    }
-    & h2 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin-top: 2rem;
-      &::before {
-        content: "## ";
-        color: var(--secondary);
-        font-family: var(--codeFont);
-        font-weight: 500;
-        opacity: 0.7;
-      }
-    }
-    & h3 {
-      font-size: 1.12rem;
-      font-weight: 600;
-      &::before {
-        content: "### ";
-        color: var(--secondary);
-        font-family: var(--codeFont);
-        font-weight: 500;
-        opacity: 0.6;
-      }
-    }
-  }
-
-  article pre {
-    border: 1px solid #3c3c3c;
-    background: #1a1a1a;
-    color: #d4d4d4;
-    border-radius: var(--radius-md);
-  }
-
-  article :not(pre) > code {
-    background: color-mix(in srgb, var(--lightgray) 80%, transparent);
-    color: var(--secondary);
-    font-weight: 500;
-  }
-
-  blockquote {
-    border-left: 3px solid var(--secondary);
-    background: var(--highlight);
-    padding: 0.6rem 1rem;
-    border-radius: 0;
-  }
-
-  .search > .search-button,
-  .theme-switcher {
-    border-radius: var(--radius-md);
-  }
-}
-
-/* =========================================================
- * 디자인 C — 터미널 스킨 상세 (시안 C)
+ * 터미널 스킨 상세
  * 타이틀바·프롬프트 경로·주석형 메타·코드 탭·라인넘버·상태바
  * ========================================================= */
-:root[data-design-theme="C"] {
-  --comment: #6e7781;
+
+/* 본문 카드 상단: 터미널 타이틀바 (신호등 3개) */
+.page > #quartz-body .center > article::before {
+  content: "jintae@brain";
+  display: flex;
+  align-items: center;
+  height: 2.1rem;
+  margin: -1.6rem -1.6rem 1.5rem;
+  padding-left: 4.4rem;
+  font-family: var(--codeFont);
+  font-size: 0.72rem;
+  color: var(--gray);
+  background:
+    radial-gradient(circle at 1.2rem 50%, #f87171 0.27rem, transparent 0.33rem),
+    radial-gradient(circle at 2.15rem 50%, #fbbf24 0.27rem, transparent 0.33rem),
+    radial-gradient(circle at 3.1rem 50%, #34d399 0.27rem, transparent 0.33rem), var(--lightgray);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
-:root[data-design-theme="C"][saved-theme="dark"] {
-  --comment: #6a9955;
+/* Breadcrumbs → 터미널 프롬프트 경로 */
+.breadcrumb-container {
+  font-family: var(--codeFont);
+  font-size: 0.78rem;
+
+  &::before {
+    content: "$ cd ";
+    color: var(--secondary);
+  }
+
+  .breadcrumb-element p {
+    color: var(--secondary);
+  }
 }
 
-:root[data-design-theme="C"] {
-  /* 본문 카드 상단: 터미널 타이틀바 (신호등 3개) */
-  .page > #quartz-body .center > article::before {
-    content: "jintae@brain";
-    display: flex;
-    align-items: center;
-    height: 2.1rem;
-    margin: -1.6rem -1.6rem 1.5rem;
-    padding-left: 4.4rem;
+/* ContentMeta → 주석 스타일 */
+.content-meta {
+  font-family: var(--codeFont);
+  font-size: 0.75rem;
+  color: var(--comment);
+
+  &::before {
+    content: "// ";
+  }
+}
+
+/* 태그 → 모노 칩 */
+.tags .tag-link {
+  font-family: var(--codeFont);
+  font-size: 0.72rem;
+  background: var(--highlight);
+  border-radius: var(--radius-sm);
+  padding: 0.1rem 0.5rem;
+}
+
+/* 코드블록: 파일명 탭 (```bash title="..." 문법) */
+figure[data-rehype-pretty-code-figure] {
+  margin: 1.4rem 0;
+
+  > [data-rehype-pretty-code-title] {
+    width: fit-content;
     font-family: var(--codeFont);
     font-size: 0.72rem;
+    color: var(--darkgray);
+    background: var(--lightgray);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    padding: 0.32rem 0.9rem;
+  }
+
+  > [data-rehype-pretty-code-title] + pre {
+    margin-top: 0;
+    border-top-left-radius: 0;
+  }
+}
+
+/* 코드블록: 글자색 상속(다크모드 버그 수정) + 라인 넘버 + 하이라이트 라인 */
+article pre > code {
+  color: inherit;
+  counter-reset: line;
+
+  > [data-line]::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 1.4rem;
+    margin-right: 1rem;
+    text-align: right;
     color: var(--gray);
-    background:
-      radial-gradient(circle at 1.2rem 50%, #f87171 0.27rem, transparent 0.33rem),
-      radial-gradient(circle at 2.15rem 50%, #fbbf24 0.27rem, transparent 0.33rem),
-      radial-gradient(circle at 3.1rem 50%, #34d399 0.27rem, transparent 0.33rem), var(--lightgray);
-    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    opacity: 0.55;
   }
 
-  /* Breadcrumbs → 터미널 프롬프트 경로 */
-  .breadcrumb-container {
-    font-family: var(--codeFont);
-    font-size: 0.78rem;
-
-    &::before {
-      content: "$ cd ";
-      color: var(--secondary);
-    }
-
-    .breadcrumb-element p {
-      color: var(--secondary);
-    }
-  }
-
-  /* ContentMeta → 주석 스타일 */
-  .content-meta {
-    font-family: var(--codeFont);
-    font-size: 0.75rem;
-    color: var(--comment);
-
-    &::before {
-      content: "// ";
-    }
-  }
-
-  /* 태그 → 모노 칩 */
-  .tags .tag-link {
-    font-family: var(--codeFont);
-    font-size: 0.72rem;
+  > [data-line][data-highlighted-line] {
     background: var(--highlight);
-    border-radius: var(--radius-sm);
-    padding: 0.1rem 0.5rem;
-  }
-
-  /* 코드블록: 파일명 탭 (```bash title="..." 문법) */
-  figure[data-rehype-pretty-code-figure] {
-    margin: 1.4rem 0;
-
-    > [data-rehype-pretty-code-title] {
-      width: fit-content;
-      font-family: var(--codeFont);
-      font-size: 0.72rem;
-      color: var(--darkgray);
-      background: var(--lightgray);
-      border-radius: var(--radius-md) var(--radius-md) 0 0;
-      padding: 0.32rem 0.9rem;
-    }
-
-    > [data-rehype-pretty-code-title] + pre {
-      margin-top: 0;
-      border-top-left-radius: 0;
-    }
-  }
-
-  /* 코드블록: 라인 넘버 + 하이라이트 라인 */
-  article pre > code {
-    counter-reset: line;
-
-    > [data-line]::before {
-      counter-increment: line;
-      content: counter(line);
-      display: inline-block;
-      width: 1.4rem;
-      margin-right: 1rem;
-      text-align: right;
-      color: var(--gray);
-      opacity: 0.55;
-    }
-
-    > [data-line][data-highlighted-line] {
-      background: var(--highlight);
-      box-shadow: inset 3px 0 0 var(--secondary);
-    }
-  }
-
-  /* 콜아웃 → 터미널 팔레트 (라벨은 대문자 모노) */
-  .callout {
-    border-radius: var(--radius-sm);
-  }
-
-  .callout[data-callout="note"],
-  .callout[data-callout="info"] {
-    --color: #569cd6;
-    --border: #569cd644;
-    --bg: #569cd612;
-  }
-
-  .callout[data-callout="tip"],
-  .callout[data-callout="example"] {
-    --color: #4ec9b0;
-    --border: #4ec9b044;
-    --bg: #4ec9b012;
-  }
-
-  .callout[data-callout="warning"],
-  .callout[data-callout="caution"] {
-    --color: #d7ba7d;
-    --border: #d7ba7d44;
-    --bg: #d7ba7d12;
-  }
-
-  .callout-title-inner {
-    font-family: var(--codeFont);
-    font-size: 0.8rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  /* 표 → GitHub 스타일 */
-  article table {
-    border-collapse: collapse;
-
-    th {
-      background: color-mix(in srgb, var(--lightgray) 55%, var(--light));
-      font-size: 0.85rem;
-    }
-
-    th,
-    td {
-      border: 1px solid var(--lightgray);
-      padding: 0.45rem 0.8rem;
-    }
-  }
-
-  /* Footer → 에디터 상태바 */
-  footer {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1.2rem;
-    font-family: var(--codeFont);
-    font-size: 0.72rem;
-    background: var(--secondary);
-    color: var(--light);
-    border-radius: var(--radius-sm);
-    padding: 0.28rem 0.9rem;
-    margin: 2rem 0 1rem;
-
-    &::before {
-      content: "⎇ main";
-    }
-
-    p {
-      margin: 0;
-      color: inherit;
-    }
-
-    ul {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      gap: 1.2rem;
-      list-style: none;
-    }
-
-    a {
-      color: inherit;
-    }
+    box-shadow: inset 3px 0 0 var(--secondary);
   }
 }
 
-@media all and (max-width: 800px) {
-  :root[data-design-theme="C"] .page > #quartz-body .center > article::before {
-    margin: -1rem -1rem 1rem;
+/* 콜아웃 → 터미널 팔레트 (라벨은 대문자 모노) */
+.callout {
+  border-radius: var(--radius-sm);
+}
+
+.callout[data-callout="note"],
+.callout[data-callout="info"] {
+  --color: #569cd6;
+  --border: #569cd644;
+  --bg: #569cd612;
+}
+
+.callout[data-callout="tip"],
+.callout[data-callout="example"] {
+  --color: #4ec9b0;
+  --border: #4ec9b044;
+  --bg: #4ec9b012;
+}
+
+.callout[data-callout="warning"],
+.callout[data-callout="caution"] {
+  --color: #d7ba7d;
+  --border: #d7ba7d44;
+  --bg: #d7ba7d12;
+}
+
+.callout-title-inner {
+  font-family: var(--codeFont);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* 표 → GitHub 스타일 */
+article table {
+  border-collapse: collapse;
+
+  th {
+    background: color-mix(in srgb, var(--lightgray) 55%, var(--light));
+    font-size: 0.85rem;
+  }
+
+  th,
+  td {
+    border: 1px solid var(--lightgray);
+    padding: 0.45rem 0.8rem;
+  }
+}
+
+/* Footer → 에디터 상태바 */
+footer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  font-family: var(--codeFont);
+  font-size: 0.72rem;
+  background: var(--secondary);
+  color: var(--light);
+  border-radius: var(--radius-sm);
+  padding: 0.28rem 0.9rem;
+  margin: 2rem 0 1rem;
+
+  &::before {
+    content: "⎇ main";
+  }
+
+  p {
+    margin: 0;
+    color: inherit;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1.2rem;
+    list-style: none;
+  }
+
+  a {
+    color: inherit;
   }
 }
 
@@ -867,5 +464,9 @@ pre {
   .page > #quartz-body .center > article {
     margin-top: 0.6rem;
     padding: 1rem;
+  }
+
+  .page > #quartz-body .center > article::before {
+    margin: -1rem -1rem 1rem;
   }
 }

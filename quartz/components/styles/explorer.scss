@@ -123,7 +123,9 @@ button.desktop-explorer {
     padding: 0;
 
     &.explorer-ul {
-      overscroll-behavior: contain;
+      // 목록 끝에 닿으면 페이지(본문)로 스크롤이 이어지도록 chaining 허용.
+      // (모바일 오버레이는 아래 .mobile-no-scroll 규칙에서 contain 유지)
+      overscroll-behavior: auto;
     }
 
     & li > a {

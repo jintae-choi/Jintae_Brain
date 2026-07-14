@@ -1,15 +1,22 @@
 @use "../../styles/variables.scss" as *;
 
+/* 접기 버튼 + 다크모드 버튼: 중앙 페이지 헤더(브레드크럼 아래)에 가로로 놓인다.
+   .page-header 가 sticky(custom.scss) 이므로 스크롤해도 상단에 고정된다 — 플로팅 아님. */
+.page-header .flex-component {
+  justify-content: flex-start;
+  margin: 0.4rem 0 0.6rem;
+
+  @media all and ($mobile) {
+    display: none;
+  }
+}
+
 .sidebar-toggle {
-  order: -1;
-  align-self: flex-start;
-  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 1.75rem;
   height: 1.75rem;
-  margin-bottom: 0.5rem;
   padding: 0;
   border: 1px solid var(--lightgray);
   border-radius: 999px;
@@ -25,30 +32,34 @@
   & .chevron {
     transition: transform 0.2s ease;
   }
-
-  @media all and ($mobile) {
-    display: none;
-  }
 }
 
+/* 다크모드 버튼: 기본 세로 여백 제거하고 토글과 같은 행 높이로 */
+.page-header .darkmode {
+  margin: 0;
+}
+
+/* 접힘: 토글이 중앙 헤더에 있으므로 왼쪽 사이드바 전체를 숨긴다 */
 html[data-sidebar-left-collapsed] {
   & .sidebar-toggle .chevron {
     transform: rotateZ(180deg);
   }
 
   @media all and not ($mobile) {
+    // #quartz-body 하위로 중첩해 베이스(.page > #quartz-body .sidebar)의
+    // display:flex 특이도를 이긴다.
     & #quartz-body {
-      --sidebar-left-width: 0px;
-    }
+      --sidebar-left-width: 0;
 
-    & .sidebar.left {
-      min-width: 0;
-      padding-left: 0;
-      padding-right: 0;
-      overflow: visible;
+      // display:none 으로 없애면 .center(명시적 grid-area 없음)가 왼쪽 0폭 칸으로
+      // 자동배치돼 뭉개진다. 그리드 아이템으로 남기고(폭 0) 내용만 감춘다.
+      & .sidebar.left {
+        padding: 0;
+        overflow: hidden;
 
-      & > *:not(.sidebar-toggle) {
-        display: none;
+        & > * {
+          display: none;
+        }
       }
     }
   }

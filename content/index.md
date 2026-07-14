@@ -1,5 +1,5 @@
 ---
-title: 🧠 Jintae Brain
+title: Jintae Brain
 tags:
   - index
 date: 2026-07-02

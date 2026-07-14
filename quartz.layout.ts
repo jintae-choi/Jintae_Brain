@@ -30,6 +30,14 @@ export const defaultContentPageLayout: PageLayout = {
       component: Component.Breadcrumbs(),
       condition: (page) => page.fileData.slug !== "index",
     }),
+    Component.Flex({
+      components: [
+        { Component: Component.SidebarToggle() },
+        { Component: Component.Darkmode() },
+      ],
+      direction: "row",
+      gap: "0.5rem",
+    }),
     Component.ArticleTitle(),
     Component.ConditionalRender({
       component: Component.ContentMeta(),
@@ -41,7 +49,6 @@ export const defaultContentPageLayout: PageLayout = {
     }),
   ],
   left: [
-    Component.SidebarToggle(),
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Flex({
@@ -50,11 +57,9 @@ export const defaultContentPageLayout: PageLayout = {
           Component: Component.Search(),
           grow: true,
         },
-        { Component: Component.Darkmode() },
         { Component: Component.ReaderMode() },
       ],
     }),
-    Component.ThemeSwitcher(),
     Component.Explorer({
       folderDefaultState: "open",
       initiallyOpenFolders: ["개발"],
@@ -70,9 +75,20 @@ export const defaultContentPageLayout: PageLayout = {
 
 // components for pages that display lists of pages  (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
+  beforeBody: [
+    Component.Breadcrumbs(),
+    Component.Flex({
+      components: [
+        { Component: Component.SidebarToggle() },
+        { Component: Component.Darkmode() },
+      ],
+      direction: "row",
+      gap: "0.5rem",
+    }),
+    Component.ArticleTitle(),
+    Component.ContentMeta(),
+  ],
   left: [
-    Component.SidebarToggle(),
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Flex({
@@ -81,10 +97,8 @@ export const defaultListPageLayout: PageLayout = {
           Component: Component.Search(),
           grow: true,
         },
-        { Component: Component.Darkmode() },
       ],
     }),
-    Component.ThemeSwitcher(),
     Component.Explorer({
       folderDefaultState: "open",
       initiallyOpenFolders: ["개발"],
