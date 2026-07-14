@@ -12,6 +12,7 @@ import ContentMeta from "./ContentMeta"
 import Spacer from "./Spacer"
 import TableOfContents from "./TableOfContents"
 import Explorer from "./Explorer"
+import SidebarToggle from "./SidebarToggle"
 import TagList from "./TagList"
 import Graph from "./Graph"
 import Backlinks from "./Backlinks"
@@ -39,6 +40,7 @@ export {
   Spacer,
   TableOfContents,
   Explorer,
+  SidebarToggle,
   TagList,
   Graph,
   Backlinks,

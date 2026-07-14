@@ -1,0 +1,55 @@
+@use "../../styles/variables.scss" as *;
+
+.sidebar-toggle {
+  order: -1;
+  align-self: flex-start;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-bottom: 0.5rem;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  border-radius: 999px;
+  background-color: var(--light);
+  color: var(--dark);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--tertiary);
+    border-color: var(--tertiary);
+  }
+
+  & .chevron {
+    transition: transform 0.2s ease;
+  }
+
+  @media all and ($mobile) {
+    display: none;
+  }
+}
+
+html[data-sidebar-left-collapsed] {
+  & .sidebar-toggle .chevron {
+    transform: rotateZ(180deg);
+  }
+
+  @media all and not ($mobile) {
+    & #quartz-body {
+      --sidebar-left-width: 0px;
+    }
+
+    & .sidebar.left {
+      min-width: 0;
+      padding-left: 0;
+      padding-right: 0;
+      overflow: visible;
+
+      & > *:not(.sidebar-toggle) {
+        display: none;
+      }
+    }
+  }
+}

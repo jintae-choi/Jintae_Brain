@@ -44,7 +44,9 @@ table th {
 @media all and (min-width: 1200px) {
   .page > #quartz-body {
     justify-content: center;
-    grid-template-columns: minmax(240px, 300px) minmax(620px, 760px) minmax(240px, 300px);
+    grid-template-columns:
+      var(--sidebar-left-width, minmax(240px, 300px)) minmax(620px, 760px)
+      minmax(240px, 300px);
   }
 
   .page > #quartz-body .center {
@@ -305,8 +307,7 @@ pre {
     background:
       radial-gradient(circle at 1.1rem 50%, #f87171 0.26rem, transparent 0.32rem),
       radial-gradient(circle at 1.95rem 50%, #fbbf24 0.26rem, transparent 0.32rem),
-      radial-gradient(circle at 2.8rem 50%, #34d399 0.26rem, transparent 0.32rem),
-      #1e293b;
+      radial-gradient(circle at 2.8rem 50%, #34d399 0.26rem, transparent 0.32rem), #1e293b;
     border-radius: var(--radius-md) var(--radius-md) 0 0;
   }
 
@@ -673,8 +674,7 @@ pre {
     background:
       radial-gradient(circle at 1.2rem 50%, #f87171 0.27rem, transparent 0.33rem),
       radial-gradient(circle at 2.15rem 50%, #fbbf24 0.27rem, transparent 0.33rem),
-      radial-gradient(circle at 3.1rem 50%, #34d399 0.27rem, transparent 0.33rem),
-      var(--lightgray);
+      radial-gradient(circle at 3.1rem 50%, #34d399 0.27rem, transparent 0.33rem), var(--lightgray);
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   }
 
