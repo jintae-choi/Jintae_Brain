@@ -1,5 +1,5 @@
 ---
-title: Docker 개발 모드
+title: Quartz Docker 2-모드 운영 구조
 tags: [Docker, 개발환경, 운영]
 date: 2026-04-14
 ---
