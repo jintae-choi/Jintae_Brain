@@ -64,6 +64,11 @@ export const defaultContentPageLayout: PageLayout = {
       folderDefaultState: "open",
       initiallyOpenFolders: ["개발"],
       useSavedState: false,
+      mapFn: (node) => {
+        if (node.isFolder && node.displayName === "Docker") {
+          node.displayName = "🐳 Docker"
+        }
+      },
     }),
   ],
   right: [
@@ -103,6 +108,11 @@ export const defaultListPageLayout: PageLayout = {
       folderDefaultState: "open",
       initiallyOpenFolders: ["개발"],
       useSavedState: false,
+      mapFn: (node) => {
+        if (node.isFolder && node.displayName === "Docker") {
+          node.displayName = "🐳 Docker"
+        }
+      },
     }),
   ],
   right: [],
