@@ -4,6 +4,7 @@ import { ProcessedContent } from "../plugins/vfile"
 import { QuartzLogger } from "../util/log"
 import { trace } from "../util/trace"
 import { BuildCtx } from "../util/ctx"
+import { buildMeta } from "../util/buildMeta"
 import { styleText } from "util"
 
 export async function emitContent(ctx: BuildCtx, content: ProcessedContent[]) {
@@ -14,6 +15,8 @@ export async function emitContent(ctx: BuildCtx, content: ProcessedContent[]) {
   log.start(`Emitting files`)
 
   let emittedFiles = 0
+  // 병렬 emitter 시작 전에 동기적으로 설정 → 레이스 없이 renderPage가 참조.
+  buildMeta.assetVersion = Date.now().toString(36)
   const staticResources = getStaticResourcesFromPlugins(ctx)
   await Promise.all(
     cfg.plugins.emitters.map(async (emitter) => {

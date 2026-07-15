@@ -5,6 +5,7 @@ import BodyConstructor from "./Body"
 import { JSResourceToScriptElement, StaticResources } from "../util/resources"
 import { FullSlug, RelativeURL, joinSegments, normalizeHastElement } from "../util/path"
 import { clone } from "../util/clone"
+import { buildMeta } from "../util/buildMeta"
 import { visit } from "unist-util-visit"
 import { Root, Element, ElementContent } from "hast"
 import { GlobalConfiguration } from "../cfg"
@@ -33,7 +34,9 @@ export function pageResources(
   const resources: StaticResources = {
     css: [
       {
-        content: joinSegments(baseDir, "index.css"),
+        content:
+          joinSegments(baseDir, "index.css") +
+          (buildMeta.assetVersion ? `?v=${buildMeta.assetVersion}` : ""),
       },
       ...staticResources.css,
     ],
