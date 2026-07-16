@@ -25,15 +25,12 @@ date: 2026-07-02
 
 | 분야 | 다루는 내용 |
 | --- | --- |
-| [[개발/git/index\|git]] | 기본 명령어부터 bare repo 배포 파이프라인, hooks 자동화까지 |
-| [[개발/Agentic AI/index\|Agentic AI]] | Claude Code 환경 이해, 프롬프트 설계, AI 협업 워크플로우 |
-| [[개발/JavaScript/index\|JavaScript]] | 실행 컨텍스트, 스코프 체인, 클로저 등 언어 코어 |
-| [[개발/배포/index\|배포]] | GitHub Actions · GitHub Pages 배포 구조 |
-| [[개발/Docker/index\|Docker]] | 개발 모드 컨테이너 구성 |
+| [[개발/시스템/index\|시스템]] | OS 구조(커널·유저랜드·시스템콜), 셸, RDP·SSH 계정 |
+| [[개발/서버/index\|서버]] | Docker 컨테이너, GitHub Pages 배포 |
 | [[개발/DB/index\|DB]] | dry run 패턴 등 데이터 작업 안전장치 |
-| [[개발/shell/index\|shell]] | 로컬 API 호출, 마이그레이션 스크립트 실행 |
-| [[개발/시스템/index\|시스템]] | Windows RDP·SSH 계정 구조 |
-| [[개발/웹/index\|웹]] | CDN 렌더링 차단으로 인한 화면 멈춤 분석 |
+| [[개발/git/index\|git]] | 기본 명령어부터 bare repo 배포 파이프라인, hooks 자동화까지 |
+| [[개발/웹/index\|웹]] | 브라우저 렌더링·CSS 함정, JavaScript 언어 코어 |
+| [[개발/Agentic AI/index\|Agentic AI]] | Claude Code 환경 이해, 프롬프트 설계, AI 협업 워크플로우 |
 | [[개발/프로젝트/index\|프로젝트]] | 이 사이트를 만들며 진행한 작업 기록 |
 | [[개발/기술동향/index\|기술동향]] | 다음에 공부할 기술 로드맵 |
 
