@@ -1,5 +1,5 @@
 ---
-title: WBS 정규화와 뷰를 활용한 역정규화 전략
+title: 🤖 WBS 정규화와 뷰를 활용한 역정규화 전략
 tags:
   - claude
 date: 2026-04-07

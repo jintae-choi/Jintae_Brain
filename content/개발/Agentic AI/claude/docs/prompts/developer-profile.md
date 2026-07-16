@@ -1,5 +1,5 @@
 ---
-title: 개발자 프로필
+title: 🤖 개발자 프로필
 tags:
   - claude
 date: 2026-04-06

@@ -1,5 +1,5 @@
 ---
-title: Claude Code 프로젝트 셋업 가이드
+title: 🤖 Claude Code 프로젝트 셋업 가이드
 tags:
   - claude
 date: 2026-04-06

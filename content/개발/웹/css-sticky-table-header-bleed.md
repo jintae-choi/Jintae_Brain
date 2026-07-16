@@ -1,5 +1,5 @@
 ---
-title: sticky 테이블 헤더 투명 비침 (border-collapse의 함정)
+title: 🌐 sticky 테이블 헤더 투명 비침 (border-collapse의 함정)
 tags:
   - 웹
   - 프론트엔드

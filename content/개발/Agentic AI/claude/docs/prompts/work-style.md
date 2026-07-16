@@ -1,5 +1,5 @@
 ---
-title: 작업 방식 가이드
+title: 🤖 작업 방식 가이드
 tags:
   - claude
 date: 2026-04-06

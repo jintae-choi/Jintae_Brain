@@ -1,5 +1,5 @@
 ---
-title: 대화 회고 및 학습 기록
+title: 🤖 대화 회고 및 학습 기록
 tags:
   - claude
 date: 2026-04-06

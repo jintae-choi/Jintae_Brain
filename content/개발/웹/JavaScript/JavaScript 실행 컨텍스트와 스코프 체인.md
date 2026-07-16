@@ -1,5 +1,5 @@
 ---
-title: JavaScript 실행 컨텍스트와 스코프 체인
+title: 🟨 JavaScript 실행 컨텍스트와 스코프 체인
 tags:
   - JavaScript
   - 기초문법

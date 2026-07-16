@@ -1,5 +1,5 @@
 ---
-title: Windows RDP 계정과 SSH 계정은 따로가 아니다
+title: ⚙️ Windows RDP 계정과 SSH 계정은 따로가 아니다
 tags:
   - ssh
   - rdp

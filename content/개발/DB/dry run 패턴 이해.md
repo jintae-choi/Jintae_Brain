@@ -1,5 +1,5 @@
 ---
-title: dry run 패턴 이해
+title: 🛢️ dry run 패턴 이해
 tags:
   - DB
   - migration

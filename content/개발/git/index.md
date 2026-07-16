@@ -1,5 +1,5 @@
 ---
-title: git
+title: 🌿 git
 tags:
   - git
 date: 2026-04-13

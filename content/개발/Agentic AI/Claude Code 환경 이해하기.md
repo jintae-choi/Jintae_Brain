@@ -1,5 +1,5 @@
 ---
-title: Claude Code 환경 이해하기
+title: 🤖 Claude Code 환경 이해하기
 tags: [Claude Code, Agentic AI, 자동화, 설정]
 date: 2026-04-14
 ---

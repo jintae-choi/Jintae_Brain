@@ -1,5 +1,5 @@
 ---
-title: JavaScript 클로저(Closure) 이해하기
+title: 🟨 JavaScript 클로저(Closure) 이해하기
 tags:
   - JavaScript
   - 기초문법

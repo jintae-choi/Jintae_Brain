@@ -1,5 +1,5 @@
 ---
-title: CLAUDE.md
+title: 🤖 CLAUDE.md
 tags:
   - claude
 date: 2026-04-06
