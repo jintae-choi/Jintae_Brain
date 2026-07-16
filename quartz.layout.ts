@@ -38,8 +38,12 @@ const explorerOptions: Parameters<typeof Component.Explorer>[0] = {
         return (ai === -1 ? folderOrder.length : ai) - (bi === -1 ? folderOrder.length : bi)
       }
     }
-    // 그 외(파일끼리, 목록 밖 항목)는 기본 정렬: 폴더 먼저, 이름 숫자·가나다순
-    if ((!a.isFolder && !b.isFolder) || (a.isFolder && b.isFolder)) {
+    // 파일끼리는 파일명(슬러그) 숫자순 — "1. …" 파일 번호가 탐색기 표시 순번과 일치하게
+    if (!a.isFolder && !b.isFolder) {
+      return a.slug.localeCompare(b.slug, undefined, { numeric: true, sensitivity: "base" })
+    }
+    // 목록 밖 폴더끼리는 이름 숫자·가나다순
+    if (a.isFolder && b.isFolder) {
       return a.displayName.localeCompare(b.displayName, undefined, {
         numeric: true,
         sensitivity: "base",
@@ -48,8 +52,37 @@ const explorerOptions: Parameters<typeof Component.Explorer>[0] = {
     return !a.isFolder && b.isFolder ? 1 : -1
   },
   mapFn: (node) => {
-    if (node.isFolder && node.displayName === "Docker") {
-      node.displayName = "🐳 Docker"
+    // 폴더별 상징 이모지 — 직렬화 제약으로 매핑 표를 함수 안에 선언
+    if (node.isFolder) {
+      const folderIcons: Record<string, string> = {
+        시스템: "🖥️",
+        OS: "⚙️",
+        shell: "🐚",
+        서버: "🗄️",
+        Docker: "🐳",
+        배포: "🚀",
+        DB: "🛢️",
+        git: "🌿",
+        웹: "🌐",
+        JavaScript: "🟨",
+        "Agentic AI": "🤖",
+        프로젝트: "📂",
+        기술동향: "📡",
+      }
+      const icon = folderIcons[node.displayName]
+      if (icon) {
+        node.displayName = `${icon} ${node.displayName}`
+      }
+
+      // 문서(파일)는 이모지 대신 폴더 안 순번 — sort가 map보다 먼저라 표시 순서와 일치
+      let n = 1
+      for (const child of node.children) {
+        if (!child.isFolder) {
+          const plain = child.displayName.replace(/^\p{Extended_Pictographic}️?\s*/u, "")
+          child.displayName = `${n}. ${plain}`
+          n++
+        }
+      }
     }
   },
 }

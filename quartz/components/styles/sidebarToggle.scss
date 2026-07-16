@@ -1,7 +1,7 @@
 @use "../../styles/variables.scss" as *;
 
-/* 접기 버튼 + 다크모드 버튼: 중앙 페이지 헤더(브레드크럼 아래)에 가로로 놓인다.
-   .page-header 가 sticky(custom.scss) 이므로 스크롤해도 상단에 고정된다 — 플로팅 아님. */
+/* 컨트롤 버튼(접기·다크모드·리더모드): 중앙 상단 header 알약 바 안에 가로로 놓인다.
+   header 자체가 sticky(custom.scss) — 스크롤해도 상단 고정. */
 .page-header .flex-component {
   justify-content: flex-start;
   margin: 0.4rem 0 0.6rem;

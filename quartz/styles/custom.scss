@@ -30,6 +30,12 @@ body {
   overflow-wrap: break-word;
 }
 
+/* 스크롤바 슬림화: Windows 기본(약 17px) → thin(약 10px). 크롬 121+·파이어폭스 공통 표준 속성 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--lightgray) transparent;
+}
+
 /* 코드·표 셀은 keep-all 예외 — 좁은 셀·긴 토큰의 오버플로 방지 */
 pre,
 code,
@@ -38,9 +44,10 @@ table th {
   word-break: normal;
 }
 
+/* 페이지 전체 폭 사용 — 본문은 화면 중앙, 탐색기는 왼쪽 끝(아래 그리드의 1fr 사이드 칼럼이 중앙 정렬 담당) */
 .page {
-  max-width: 1480px;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
   padding: 0 0.5rem 2rem;
 }
 
@@ -50,11 +57,19 @@ table th {
 }
 
 @media all and (min-width: 1200px) {
+  /* 양쪽 사이드 칼럼을 1fr로 균등 신축 → 가운데 본문 칼럼이 항상 화면 중앙 */
   .page > #quartz-body {
-    justify-content: center;
+    justify-content: stretch;
     grid-template-columns:
-      var(--sidebar-left-width, minmax(240px, 300px)) minmax(620px, 760px)
-      minmax(240px, 300px);
+      var(--sidebar-left-width, minmax(280px, 1fr)) minmax(660px, 1060px)
+      minmax(220px, 1fr);
+  }
+
+  /* 목차(왼쪽 탐색기) 접어도 본문 위치 고정:
+     접힘 시에도 왼쪽 그리드 칸 폭을 유지하고 내용만 숨긴다(sidebarToggle.scss는 폭을 0으로 만듦).
+     specificity(.page > #quartz-body)로 코어 규칙(--sidebar-left-width:0)을 이긴다. */
+  html[data-sidebar-left-collapsed] .page > #quartz-body {
+    --sidebar-left-width: minmax(280px, 1fr);
   }
 
   .page > #quartz-body .center {
@@ -76,16 +91,6 @@ table th {
   text-shadow: none;
 }
 
-/* 페이지 헤더(브레드크럼·제목·메타·태그·컨트롤 버튼)를 스크롤해도 상단 고정 */
-.page > #quartz-body .center > .page-header {
-  position: sticky;
-  top: 0;
-  z-index: 5;
-  background: var(--light);
-  padding-top: 1rem;
-  padding-bottom: 0.25rem;
-}
-
 h1,
 h2,
 h3,
@@ -105,11 +110,22 @@ blockquote {
   color: var(--darkgray);
 }
 
+/* 본문 글자 크기: 17px(1.0625rem)가 커서 15.2px(0.95rem)로 축소 */
 article p,
 article li,
 article blockquote {
-  font-size: 1.0625rem;
+  font-size: 0.95rem;
   letter-spacing: -0.01em;
+}
+
+article table {
+  font-size: 0.9rem;
+}
+
+/* 문서 제목(base.scss 기본 2rem=32px 축소) */
+.article-title {
+  font-size: 1.55rem;
+  margin-top: 0.75rem;
 }
 
 article code {
@@ -135,6 +151,11 @@ input:focus-visible {
   background: var(--light);
 }
 
+/* 검색창 아래 살짝 여백 — 탐색기와 붙어 보이지 않게 */
+.sidebar.left .search {
+  margin-bottom: 0.6rem;
+}
+
 .search > .search-button > p {
   color: var(--gray);
 }
@@ -143,14 +164,26 @@ input:focus-visible {
   border-color: color-mix(in srgb, var(--secondary) 36%, var(--lightgray));
 }
 
+/* 왼쪽 탐색기 문서명(파일 링크):
+   한 줄로 클립(넘치면 가림), hover 시 줄바꿈을 풀어 전체 이름 노출.
+   clip 대상은 파일 li(:has(> a))에만 — 폴더 행은 제외. */
+.explorer-content li:has(> a) {
+  overflow: hidden;
+}
+
 .explorer-content ul li > a {
   display: inline-block;
+  white-space: nowrap;
+  max-width: 100%;
   padding: 0.08rem 0.3rem;
   border-radius: 6px;
+  font-size: 0.82rem;
+  line-height: 1.55;
 }
 
 .explorer-content ul li > a:hover {
   background: var(--highlight);
+  white-space: normal;
 }
 
 .folder-count {
@@ -171,8 +204,40 @@ pre {
 /* =========================================================
  * 본문 카드 · 사이드바 레이아웃
  * ========================================================= */
-.page > #quartz-body .page-header {
-  margin-top: 1.4rem;
+/* .page-header의 박스를 없애 자식들이 .center 직속처럼 배치되게 한다.
+   → 아래 header(컨트롤 버튼)의 sticky 경계가 짧은 헤더 카드가 아니라 .center(본문 전체 높이)가 됨 */
+.page > #quartz-body .center > .page-header {
+  display: contents;
+}
+
+/* 상단 고정 바: 왼쪽 브레드크럼 + 오른쪽 컨트롤 버튼(사이드바 접기·다크모드·리더모드).
+   불투명 배경 — 스크롤 시 본문이 바 아래로 지나감(플로팅 아님) */
+.page > #quartz-body .center > .page-header > header {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid var(--lightgray);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  border-top: none;
+  background: var(--light);
+
+  .breadcrumb-container {
+    margin: 0;
+  }
+
+  .flex-component {
+    margin: 0;
+    flex-shrink: 0;
+  }
+}
+
+/* 헤더 카드 스킨(브레드크럼·제목·메타·태그) — .page-header가 display:contents가 되면서 안쪽 래퍼가 카드 역할 */
+.page > #quartz-body .page-header > .popover-hint {
+  margin-top: 0.8rem;
   padding: 1rem 1.2rem;
   border: 1px solid var(--lightgray);
   background: var(--light);
@@ -187,17 +252,30 @@ pre {
   box-shadow: none;
 }
 
-.page > #quartz-body .sidebar.left,
-.page > #quartz-body .sidebar.right {
-  padding: $topSpacing 1.4rem 2rem;
+/* 왼쪽 사이드바: 사이트 제목(Jintae Brain)이 메인 로고처럼 화면 왼쪽 최상단에 오도록 상단 여백 최소화.
+   오른쪽 안 여백 2.8rem = 탐색기(목차)와 본문 사이 간격 확보 */
+.page > #quartz-body .sidebar.left {
+  padding: 1.2rem 2.8rem 2rem 1.4rem;
   border: none;
   background: transparent;
+}
+
+/* 우측 사이드바(그래프·목차·백링크): 본문과 거리 확보 + 글씨는 탐색기 문서명(0.82rem)과 동일 */
+.page > #quartz-body .sidebar.right {
+  padding: $topSpacing 1.4rem 2rem 3rem;
+  border: none;
+  background: transparent;
+  font-size: 0.82rem;
+
+  h3 {
+    font-size: 0.82rem;
+  }
 }
 
 /* 헤딩 앞에 마크다운 기호(#, ##, ###) 프리픽스 */
 article {
   & h1 {
-    font-size: 1.85rem;
+    font-size: 1.5rem;
     font-weight: 700;
     margin-top: 2.2rem;
     padding-bottom: 0.4rem;
@@ -210,7 +288,7 @@ article {
     }
   }
   & h2 {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     font-weight: 600;
     margin-top: 2rem;
     &::before {
@@ -222,7 +300,7 @@ article {
     }
   }
   & h3 {
-    font-size: 1.12rem;
+    font-size: 1.05rem;
     font-weight: 600;
     &::before {
       content: "### ";
@@ -460,10 +538,15 @@ footer {
     padding: 0 0.65rem 1.2rem;
   }
 
-  .page > #quartz-body .page-header,
+  .page > #quartz-body .page-header > .popover-hint,
   .page > #quartz-body .center > article {
     margin-top: 0.6rem;
     padding: 1rem;
+  }
+
+  /* 모바일: 버튼은 숨겨지고(sidebarToggle.scss) 브레드크럼만 남으므로 바 여백 축소 */
+  .page > #quartz-body .center > .page-header > header {
+    padding: 0.4rem 0.8rem;
   }
 
   .page > #quartz-body .center > article::before {
