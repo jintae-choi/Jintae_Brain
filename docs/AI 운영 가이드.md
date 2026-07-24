@@ -214,6 +214,7 @@ note-reviewer 에이전트로 content/개발/git/0. git 기본 명령어.md 검�
 - `title`, `tags`, `date` 필드 존재
 - 서술형 종결(`~습니다/합니다/입니다`) 3줄 이상 → 경고
 - `## 개요` 섹션 존재
+- 본문 H1(`# 제목`) 사용 → 경고 (제목은 frontmatter `title`이 담당, 본문은 `##`부터)
 
 **동작 방식**:
 - **비차단**: 경고만 stderr로 출력, exit 0
