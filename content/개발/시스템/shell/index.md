@@ -4,4 +4,6 @@ title: shell
 
 # 🐚 shell
 
-- [[로컬 API 호출 실행 방법 (마이그레이션 reconcile API)]]
+- [[자주 쓰는 셸 명령어 20선]]
+- [[Windows 실전 명령 (PowerShell·CMD)]]
+- [[로컬에서 API 호출하는 5가지 방법]]
