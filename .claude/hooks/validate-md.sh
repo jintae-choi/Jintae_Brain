@@ -54,6 +54,12 @@ has_overview=$(grep -c '^## 개요' "$file" 2>/dev/null | head -1)
 has_overview=${has_overview:-0}
 [ "$has_overview" = "0" ] && warnings="${warnings}  - '## 개요' 섹션 없음\n"
 
+# 4. 본문 H1 검사 — 제목은 frontmatter title이 담당, 본문 헤딩은 ## 부터 시작한다.
+#    페이지 헤더에 제목이 자동 표시되므로 본문 '# 제목'은 중복이 된다.
+#    코드블록(```) 안의 '# 주석'은 제외.
+h1=$(awk '/^```/{f=!f} !f && /^# /{c++} END{print c+0}' "$file")
+[ "$h1" -gt 0 ] && warnings="${warnings}  - 본문 H1(# ) ${h1}개 — 제목은 frontmatter title이 담당, 본문 섹션은 ## 부터\n"
+
 if [ -n "$warnings" ]; then
   printf "[validate-md] %s\n" "$file" >&2
   printf "$warnings" >&2
