@@ -122,9 +122,10 @@ article table {
   font-size: 0.9rem;
 }
 
-/* 문서 제목(base.scss 기본 2rem=32px 축소) */
+/* 문서 제목: 본문 H1을 쓰지 않으므로(중복 방지) 이 헤더 제목이 페이지 대표 제목.
+   본문 최상위 섹션은 ## (H2)부터 시작하므로 제목은 2.1rem로 확실히 위계를 준다 */
 .article-title {
-  font-size: 1.55rem;
+  font-size: 2.1rem;
   margin-top: 0.75rem;
 }
 
@@ -242,6 +243,29 @@ pre {
   border: 1px solid var(--lightgray);
   background: var(--light);
   border-radius: var(--radius-lg);
+
+  /* 카드 내부 순서 재배치: 날짜(위) → 제목(가운데, 큼) → 태그(아래).
+     제목을 카드 가운데 크게 둬 가장 눈에 띄게 하고 본문과 가깝게 붙인다.
+     HTML 순서(제목·메타·태그)는 그대로, order로 보이는 순서만 바꾼다. */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+
+  > .content-meta {
+    order: 1;
+    margin: 0;
+  }
+
+  > .article-title {
+    order: 2;
+    margin: 0;
+  }
+
+  > .tags {
+    order: 3;
+    margin: 0;
+  }
 }
 
 .page > #quartz-body .center > article {
