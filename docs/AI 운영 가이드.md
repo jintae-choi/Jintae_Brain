@@ -140,6 +140,8 @@ Write/Edit 후 매번
 ### `/engine-on`, `/engine-off`
 Docker 컨테이너를 dev 모드(`./quartz` 볼륨 마운트) ↔ 기본 모드로 명시 전환. SessionEnd 훅이 자동 복구해주지만 작업 흐름 중간에 명시 전환하고 싶을 때.
 
+> **주의**: 일상 미리보기는 Docker가 아니라 **로컬웹**(`npx quartz build --serve` → `http://localhost:8080`)이다. AGENTS.md 「로컬 실행」 참고. 이 두 커맨드와 `docker-compose*.yml`·`check-engine-mount` 훅은 **보존용**이며 평소엔 쓰지 않는다.
+
 ### `/commit-note [힌트]`
 현재 수정된 파일을 분석해 한국어 커밋 메시지 초안 작성. 변경 유형(docs/chore/feat/fix) 자동 분류, Co-Authored-By 포함, 사용자 승인 후 커밋. 푸시는 안 함.
 
@@ -193,7 +195,7 @@ note-reviewer 에이전트로 content/개발/git/0. git 기본 명령어.md 검�
 
 ### `SessionStart` → `session-start.sh`
 **언제**: 세션 시작 (`startup`·`resume`).
-**동작**: git 브랜치/변경 파일/최근 커밋 + Docker quartz 컨테이너 상태(모드·포트) 요약을 stdout으로 출력 → Claude 초기 컨텍스트에 자동 주입. 매 세션 "지금 뭐 하는 중이었지?" 맥락 회복 비용 제거.
+**동작**: git 브랜치/변경 파일/최근 커밋 + **로컬웹(`quartz --serve`, 8080) 실행 여부**를 stdout으로 출력 → Claude 초기 컨텍스트에 자동 주입. 매 세션 "지금 뭐 하는 중이었지?" 맥락 회복 비용 제거.
 
 ### `SessionEnd` → `session-end.sh`
 **언제**: 세션 종료 (`clear`·`logout`·`other`).

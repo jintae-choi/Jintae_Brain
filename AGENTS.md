@@ -19,18 +19,16 @@
 - 템플릿: `content/templates/기본 문서 템플릿.md`
 - frontmatter 필수: title, tags, date
 - **본문 제목 H1(`# 제목`) 금지** — 제목은 frontmatter `title`이 페이지 헤더에 자동 표시되므로 본문에 다시 쓰면 중복이다. 본문 최상위 섹션은 `## 개요`부터 시작한다(대섹션 `##`, 하위 `###`). PostToolUse 훅(`validate-md.sh`)이 본문 H1을 감지해 경고한다.
+  - **예외: 폴더 인덱스(`index.md`)는 본문 H1을 유지한다** — 폴더 랜딩 페이지 관례. 훅 경고가 떠도 index.md는 정정 대상이 아니다.
 - 문체: 간결체 (`~이다.`, 명사형 종결). 서술형 지양. **주어 생략 지양** — 누가 무엇을 하는지 명시.
 - 구성 흐름: 개요 → 큰 그림(다이어그램) → **사전 지식/용어** → **비교 예시(익숙한 것과 대조)** → 구성요소 상세 → 전체 코드 → 라인별 해설 → 경험/교훈 → Best Practices.
 - **비교 우선 원칙**: 독자가 이미 아는 도구·개념과의 대조를 구성요소 상세 표보다 앞에 배치한다. 비교가 설명보다 이해가 빠르다.
 
 ## 로컬 실행
-- **반드시 Docker 사용**. `npx quartz build --serve` 직접 실행 금지.
+- **로컬 미리보기는 로컬웹으로 띄운다**: `npx quartz build --serve` (watch 모드 — `content/` 저장 시 자동 리빌드)
 - 접속 포트: `http://localhost:8080`
-- **콘텐츠만 작업**: `docker-compose up -d`
-- **엔진(`quartz/`) 수정 시 dev 모드**: `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build`
-- 대화 맥락에 "디자인/테마/컴포넌트/레이아웃/스타일" 등 엔진 수정 키워드 → 자동으로 dev 모드로 전환
-- 작업 종료·커밋 단계·콘텐츠 작업 복귀 → 기본 모드로 복귀 (`down` 후 `up -d`)
-- 실수 방지: `quartz/**` 편집 시 PreToolUse 훅이 dev 모드 여부 검사
+- **Docker로 띄우지 않는다.** `docker-compose*.yml`·`engine-on`/`engine-off` 스킬·`check-engine-mount` 훅은 **보존**하되(추후 재사용 여지) 일상 미리보기엔 쓰지 않는다.
+- 엔진(`quartz/`) 수정 반영 방식은 로컬웹 기준으로 확인 후 확정한다 — 현재 PreToolUse 훅(`check-engine-mount.sh`)은 Docker dev 모드를 전제하므로 로컬웹 워크플로우와의 정합성은 재점검 대상.
 
 ## 환경 변경 시 문서 동기화
 - 대상: `.claude/` 하위 파일(agents, skills, commands, hooks, settings) + `AGENTS.md`·`CLAUDE.md` 자체

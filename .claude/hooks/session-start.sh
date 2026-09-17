@@ -23,25 +23,13 @@ echo "- 최근 커밋:"
 git log --oneline -3 2>/dev/null | sed 's/^/  - /'
 echo ""
 
-# Docker 컨테이너 상태 — quartz 서비스만
-echo "## Docker (quartz)"
-if ! command -v docker >/dev/null 2>&1; then
-  echo "- docker CLI 없음 — 점검 스킵"
+# 로컬웹 상태 — 이 프로젝트는 Docker로 띄우지 않는다 (AGENTS.md 「로컬 실행」)
+echo "## 로컬웹 (quartz --serve)"
+if ! command -v curl >/dev/null 2>&1; then
+  echo "- curl 없음 — 점검 스킵. 실행: \`npx quartz build --serve\`"
+elif curl -s -o /dev/null -m 2 http://localhost:8080; then
+  echo "- 상태: **실행 중** — http://localhost:8080"
 else
-  cid=$(docker ps --filter "label=com.docker.compose.service=quartz" --format '{{.ID}}' 2>/dev/null | head -1)
-  if [ -z "$cid" ]; then
-    echo "- 컨테이너 **안 떠있음**"
-    echo "- 실행: \`docker-compose up -d\` (콘텐츠 작업) 또는 \`docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build\` (엔진 작업)"
-  else
-    port=$(docker ps --filter "id=$cid" --format '{{.Ports}}' | grep -o '[0-9]*->8080' | head -1 | sed 's/->8080//')
-    mounts=$(docker inspect "$cid" --format '{{range .Mounts}}{{.Destination}}
-{{end}}' 2>/dev/null || echo "")
-    if echo "$mounts" | grep -qE '^/usr/src/app/quartz$'; then
-      mode="**dev 모드** (엔진 볼륨 마운트 ON)"
-    else
-      mode="기본 모드"
-    fi
-    echo "- 상태: 실행 중, $mode"
-    echo "- 접속: http://localhost:$port"
-  fi
+  echo "- **안 떠있음**"
+  echo "- 실행: \`npx quartz build --serve\` (watch 모드 — content 저장 시 자동 리빌드)"
 fi
