@@ -26,7 +26,6 @@ const explorerOptions: Parameters<typeof Component.Explorer>[0] = {
       "웹",
       // 웹 하위
       "JavaScript",
-      "Agentic AI",
       "프로젝트",
       "기술동향",
     ]
@@ -65,7 +64,6 @@ const explorerOptions: Parameters<typeof Component.Explorer>[0] = {
         git: "🌿",
         웹: "🌐",
         JavaScript: "🟨",
-        "Agentic AI": "🤖",
         프로젝트: "📂",
         기술동향: "📡",
       }

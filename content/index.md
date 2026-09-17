@@ -30,7 +30,6 @@ date: 2026-07-02
 | [[개발/DB/index\|DB]] | dry run 패턴 등 데이터 작업 안전장치 |
 | [[개발/git/index\|git]] | 기본 명령어부터 bare repo 배포 파이프라인, hooks 자동화까지 |
 | [[개발/웹/index\|웹]] | 브라우저 렌더링·CSS 함정, JavaScript 언어 코어 |
-| [[개발/Agentic AI/index\|Agentic AI]] | Claude Code 환경 이해, 프롬프트 설계, AI 협업 워크플로우 |
 | [[개발/프로젝트/index\|프로젝트]] | 이 사이트를 만들며 진행한 작업 기록 |
 | [[개발/기술동향/index\|기술동향]] | 다음에 공부할 기술 로드맵 |
 
