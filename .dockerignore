@@ -1,0 +1,8 @@
+# Docker 는 보존용(일상 미리보기는 로컬웹). 빌드 컨텍스트에서 윈도우 node_modules·빌드 산출물·git 이력을 제외해
+# Dockerfile 의 `COPY . .` 가 컨테이너 안 리눅스 node_modules 를 덮지 않게 한다.
+node_modules
+public
+.git
+.quartz-cache
+.obsidian
+prof

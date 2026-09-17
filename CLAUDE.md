@@ -1,6 +1,9 @@
 # CLAUDE.md
 
-<!-- 프로젝트 공통 지침의 원본은 AGENTS.md — 여기는 Claude Code 전용 규칙만. -->
+<!-- 프로젝트 사실·규약의 원본은 AGENTS.md (도구 중립 — 코덱스 등은 네이티브 로드).
+     전역 운영 규칙은 전역 CLAUDE.md(~/.claude, ai-guidelines 클론)가 모든 프로젝트에 자동 로드한다 —
+     여기서 다시 임포트하지 않는다(이중 로드). 로컬 메모리(공개 repo 예외)는 시스템이 자동 주입한다.
+     여기는 클로드 전용 규칙만 둔다. -->
 @AGENTS.md
 
 ## 토큰 절약
@@ -18,13 +21,4 @@
 - 이유: 동시 Edit은 각자 읽은 시점의 내용에 덮어쓰기 때문에, **전부 "성공"을 반환하고도 일부 수정이 조용히 사라진다**(lost update). 실패 신호가 없어서 보고 시점엔 알 수 없다.
 - 실사례: 2026-07-02 한 노트에 Edit 9개를 병렬로 보내 9개 모두 성공을 받았으나 실제로는 8개만 반영됐다. 유실된 1개를 2026-09-17에야 발견했다.
 - **여러 군데를 고쳤으면 커밋 전에 `grep -c`로 각 수정이 실제로 들어갔는지 확인한 뒤 완료를 보고한다.** Edit의 "성공" 응답만 믿지 않는다.
-
-## 자동화 자산
-- 스킬: `/new-note`, `/polish-note`, `/add-terms` (`.claude/skills/`)
-- 커맨드: `/compose-note`, `/review-note`, `/audit-project`, `/commit-note`, `/engine-on`, `/engine-off` (`.claude/commands/`)
-- 서브에이전트: `note-reviewer`, `note-linker`, `content-auditor`, `docs-auditor`, `env-auditor` (`.claude/agents/`)
-- 훅:
-  - `PreToolUse`: `quartz/**` 편집 시 dev 모드 검사 (`.claude/hooks/check-engine-mount.sh`)
-  - `PostToolUse`: `.md` frontmatter·문체 검증 (`.claude/hooks/validate-md.sh`)
-- 운영 가이드: `docs/AI 운영 가이드.md`
-- 레퍼런스 노트: `content/개발/git/6. git-hooks.md` (6단 흐름 예시)
+- **훅 경고(`[validate-md]`)가 Edit/Write 결과에 붙으면 그 자리에서 고친다** — 훅은 exit 2 로 경고를 보이게 돼 있고, 무시하면 사용자가 나중에 발견한다.

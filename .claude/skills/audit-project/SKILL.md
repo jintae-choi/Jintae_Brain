@@ -1,12 +1,13 @@
 ---
 name: audit-project
 description: 프로젝트 3축(.claude 환경 / docs / content) 품질을 전용 감사 에이전트에 위임해 체크리스트 리포트를 생성한다. 파일 수정은 하지 않는다.
-argument-hint: [env|docs|content] (생략 시 3축 모두)
+argument-hint: "[env|docs|content] (생략 시 3축 모두)"
+disable-model-invocation: true
 ---
 
 # audit-project
 
-프로젝트 품질을 3축으로 감사한다. `/review-note`가 노트 1개를 검사한다면, 이 명령은 프로젝트 전체를 검사한다.
+프로젝트 품질을 3축으로 감사한다. `/review-note`가 노트 1개를 검사한다면, 이 스킬은 프로젝트 전체를 검사한다. 무거운 감사(서브에이전트 최대 3개)라 사용자가 직접 부를 때만 실행한다.
 
 ## 실행
 
@@ -21,11 +22,11 @@ argument-hint: [env|docs|content] (생략 시 3축 모두)
 | `docs` | 단독 호출 | `docs-auditor` |
 | `content` | 단독 호출 | `content-auditor` |
 
-각 에이전트 정의는 [.claude/agents/](../agents/) 하위 동명 파일 참조.
+각 에이전트 정의는 `.claude/agents/<이름>.md`.
 
 ## 결과 종합 포맷
 
-에이전트 리포트의 섹션별 태그(OK/개선/과함/부족)를 **축소하지 말고 그대로 유지**한다. 이 명령의 역할은 3축 결과를 이어 붙이고 종합 Top 3을 뽑는 것뿐이다.
+에이전트 리포트의 섹션별 태그(OK/개선/과함/부족)를 **축소하지 말고 그대로 유지**한다. 이 스킬의 역할은 3축 결과를 이어 붙이고 종합 Top 3을 뽑는 것뿐이다.
 
 ```
 ## 1. .claude 환경 (env)
@@ -49,6 +50,6 @@ argument-hint: [env|docs|content] (생략 시 3축 모두)
 
 ## 제약
 
-- **파일 수정 금지**. 이 명령은 감사·제안 전용이다. 수정이 필요하면 사용자가 승인한 뒤 `/polish-note`·`/add-terms` 등 별도 명령으로 진행한다.
+- **파일 수정 금지**. 이 스킬은 감사·제안 전용이다. 수정이 필요하면 사용자가 승인한 뒤 `/polish-note`·`/add-terms` 등 별도 스킬로 진행한다.
 - 메인 컨텍스트에서 직접 파일을 광범위하게 읽지 않는다. 반드시 전용 감사 에이전트에 위임한다(토큰 보호).
 - `quartz/`, `public/`, `node_modules/`는 절대 보지 않는다.
