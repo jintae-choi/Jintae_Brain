@@ -115,4 +115,4 @@ thead th {
 - sticky 테이블 헤더를 만들 땐 처음부터 `separate + spacing:0 + 셀 소유 테두리 + 불투명 배경 + colgroup` 세트를 기본값으로 깔고 시작하는 게 빠르다 — 재발 함정은 "만나면 고치기"보다 "패턴으로 예방"이 싸다.
 
 ## 관련 문서
-- [[web-cdn-render-blocking-freeze|외부 CDN 의존이 부른 화면 멈춤]]
+- [[외부 CDN 의존이 부른 화면 멈춤]]
