@@ -27,9 +27,11 @@
 - **로컬웹으로 띄운다**: `npx quartz build --serve` → `http://localhost:8080`. `content/`뿐 아니라 `quartz.config.ts`·`quartz.layout.ts`·`quartz/` 안의 `.ts`·`.tsx`·`.scss`·`static/` 변경도 감시해 자동 리빌드한다(`quartz/cli/handlers.js` watch 목록) — 엔진 수정에 별도 모드 전환이 필요 없다.
 - **Docker로 띄우지 않는다.** `docker-compose*.yml`·`Dockerfile`·`.dockerignore`는 보존용(추후 재사용 여지)이며 일상 미리보기엔 쓰지 않는다.
 
-## 세션 규약 (메모리 — 공개 repo 예외)
-- 이 repo는 공개라 개인정보가 섞이는 메모리를 repo 안(`memory/`)에 두지 않는다. 클로드는 이 컴퓨터의 로컬 메모리(`~/.claude/projects/D--git-Jintae-Brain/memory/`, 현황 SSOT `project-status.md`)를 자동 로드한다. 다른 도구·다른 컴퓨터에는 이 메모리가 없으므로, 이어갈 상태는 이 파일·`docs/가이드/`·git 로그로 파악한다.
-- 회사 내부 정보 금지는 메모리·문서·노트 전부에 적용된다.
+## 세션 규약 (어느 머신에서든 동일)
+- 이 프로젝트의 메모리는 로컬 컴퓨터 메모리 대신 **repo 루트 `memory/` 폴더**다(`memory/MEMORY.md`=목차, `memory/project-status.md`=현황 SSOT — 문서 본문은 `docs/가이드/`에, memory엔 목차·현황·짧은 사실만). 세션 시작 훅(`~/.claude/hooks/inject-project-memory.sh`)이 목차를 주입하고, 훅이 없는 환경과 `@경로` 임포트를 확장하지 않는 도구(Codex 등)는 **`memory/MEMORY.md`를 직접 Read한다**.
+- **★`memory/`는 공개 repo에 커밋된다.** 프로젝트 상태·결정·짧은 사실만 적는다. 개인 정보(계정·이메일·취향 프로필)와 회사 정보(프로젝트명·사내 식별자·스키마)는 절대 넣지 않는다 — 개인·전역 사항은 `~/.claude/memory/`(비공개), 회사 사항은 그 회사 repo의 `notes/`.
+- **작업을 이어갈 땐 `memory/project-status.md`(현재 상태·다음 할 일의 SSOT)부터 Read한다.**
+- 진행 상태는 `memory/project-status.md`에, 새 사실·결정은 `docs/가이드/` 해당 문서에 갱신(중복 생성 금지)하고, 세션 종료 전(또는 단계 완료 시) 커밋·푸시한다.
 
 ## AI 자산 위치
 - 클로드 코드: `.claude/skills/`(슬래시 스킬 7개) · `.claude/agents/`(읽기 전용 서브에이전트 5개) · `.claude/hooks/`(SessionStart·PostToolUse 2개) · `.claude/settings.json`(훅 등록). 사용법·설계 이유는 `docs/가이드/01_AI 운영 가이드.md`.

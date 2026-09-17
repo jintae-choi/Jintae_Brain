@@ -1,0 +1,5 @@
+- [프로젝트 현황](project-status.md) — 현재 상태·다음 할 일 SSOT (2026-09-17 AI 환경 정비·memory/ repo 이관 완료)
+- [디자인 개선 프로젝트](project-design-revamp.md) — 2026-07-02 진단, 최종안 A 구현·푸시 완료, 잔여 소항목만
+- [로컬 실행=로컬웹](local-run-localweb.md) — Docker 아님, npx quartz build --serve로 localhost:8080. 2026-09-17 Docker 훅·engine-on/off 삭제
+- [목차 긴 제목 hover](explorer-long-title-hover.md) — 긴 문서명은 marquee 아닌 hover 시 줄바꿈 펼침
+- [공개 노트 사내 식별자 노출](public-repo-internal-identifier-leak.md) — 2026-09-17 파일에서 전부 제거·푸시 완료, git 이력에는 잔존(재작성 안 함)
