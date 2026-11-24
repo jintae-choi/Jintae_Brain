@@ -1,4 +1,4 @@
-- [프로젝트 현황](project-status.md) — 현재 상태·다음 할 일 SSOT (2026-09-17 AI 환경 정비·memory 이관·WBS 노트 추가 완료, 잔여 없음)
+- [프로젝트 현황](project-status.md) — 현재 상태·다음 할 일 SSOT (2026-11-16: git 브랜치 접두어 노트·Pull Request 노트 2건이 「다음 할 일」에 올라 있음)
 - [디자인 개선 프로젝트](project-design-revamp.md) — 2026-07-02 진단, 최종안 A 구현·푸시 완료, 잔여 소항목만
 - [로컬 실행=로컬웹](local-run-localweb.md) — Docker 아님, npx quartz build --serve로 localhost:8080. 2026-09-17 Docker 훅·engine-on/off 삭제
 - [목차 긴 제목 hover](explorer-long-title-hover.md) — 긴 문서명은 marquee 아닌 hover 시 줄바꿈 펼침
